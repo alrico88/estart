@@ -54,13 +54,7 @@ import {
   BIconClipboard,
   BIconPlay
 } from "bootstrap-vue";
-
-const TOAST_TIMEOUT = 4000;
-
-const toastStyles = {
-  ok: "success",
-  error: "danger"
-};
+import ToastMixin, { toastVariants } from "@/mixins/ToastMixin";
 
 export default {
   name: "ImportExport",
@@ -76,6 +70,7 @@ export default {
     BIconClipboard,
     BIconPlay
   },
+  mixins: [ToastMixin],
   data() {
     return {
       importHash: "",
@@ -95,12 +90,12 @@ export default {
       let message, variant;
       if (res) {
         message = "Imported successfully";
-        variant = toastStyles.ok;
+        variant = toastVariants.SUCCESS;
       } else {
         message = "Error importing configuration";
-        variant = toastStyles.error;
+        variant = toastVariants.ERROR;
       }
-      this.toaster("Import", message, variant);
+      this.showToast("Import", message, variant);
       this.closeModal();
     },
     openModal() {
@@ -110,21 +105,18 @@ export default {
       this.$refs.modal.hide();
     },
     successClip() {
-      this.toaster("Clipboard", "Copied hash to clipboard", toastStyles.ok);
-    },
-    errorClip() {
-      this.toaster(
+      this.showToast(
         "Clipboard",
-        "Error copying to clipboard",
-        toastStyles.error
+        "Copied hash to clipboard",
+        toastVariants.SUCCESS
       );
     },
-    toaster(title, message, style) {
-      this.$bvToast.toast(message, {
-        title,
-        autoHideDelay: TOAST_TIMEOUT,
-        variant: style
-      });
+    errorClip() {
+      this.showToast(
+        "Clipboard",
+        "Error copying to clipboard",
+        toastVariants.ERROR
+      );
     }
   }
 };

@@ -14,6 +14,10 @@
   options-toggler(@open-ie-modal="openImportModal", @open-style-modal="openStyleModal")
   style-options(ref="styleModal")
   import-export(ref="importExportModal")
+  b-toast#update-toast(variant="warning", title="Update available", no-auto-hide)
+    p A new version is available, please refresh
+    b-button(variant="warning", @click="refreshApp", size="sm") Reload app
+
 </template>
 
 <script>
@@ -22,12 +26,14 @@ import BlocksArea from "./components/BlocksArea.vue";
 import Clock from "./components/Clock.vue";
 import OptionsToggler from "@/components/OptionsToggler.vue";
 import ImportExport from "@/components/ImportExport.vue";
-import { BModal } from "bootstrap-vue";
+import { BModal, BToast, BButton } from "bootstrap-vue";
 import StyleOptions from "@/components/StyleOptions.vue";
 import { mapState } from "vuex";
+import UpdateMixin from "./mixins/UpdateMixin";
 
 export default {
   name: "App",
+  mixins: [UpdateMixin],
   components: {
     StyleOptions,
     ImportExport,
@@ -35,10 +41,22 @@ export default {
     Search,
     BlocksArea,
     Clock,
-    BModal
+    BModal,
+    BToast,
+    BButton
   },
   computed: {
     ...mapState(["ui"])
+  },
+  watch: {
+    updateExists: {
+      immediate: true,
+      handler: function(value) {
+        if (value === true) {
+          this.$bvToast.show("update-toast");
+        }
+      }
+    }
   },
   methods: {
     openImportModal() {
