@@ -9,7 +9,9 @@
             type="text",
             :placeholder="placeholder",
             @keydown.enter.prevent="goSearch",
-            v-model="query"
+            v-model="query",
+            autofocus,
+            autocomplete="false"
           )
         div(v-if="editing")
           b-form-select(size="lg", :options="providers", v-model="selectedProvider")
