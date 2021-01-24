@@ -25,7 +25,7 @@ export default {
       hours: startDate.getHours(),
       minutes: startDate.getMinutes(),
       month: startDate.getMonth(),
-      day: startDate.getDay(),
+      day: startDate.getDate(),
       dayOfWeek: startDate.getDay(),
       year: startDate.getFullYear(),
       showDots: true
@@ -53,7 +53,7 @@ export default {
       const now = new Date();
       this.hours = now.getHours();
       this.minutes = now.getMinutes();
-      this.day = now.getDay();
+      this.day = now.getDate();
       this.month = now.getMonth();
       this.dayOfWeek = now.getDay();
       this.year = now.getFullYear();
