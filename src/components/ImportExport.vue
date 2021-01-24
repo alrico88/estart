@@ -31,7 +31,7 @@ b-modal(
           |  Copy to clipboard
   .row(v-show="shownOption === 1")
     .col
-      b-form(@submit="performImport")
+      b-form(@submit.prevent="performImport")
         b-form-group(label="Paste your config hash here", description="Warning: it will overwrite your current configuration")
           b-form-textarea(v-model="importHash", :rows="5")
         b-button(type="submit", variant="success", size="sm", :disabled="disableRunImport")
@@ -101,6 +101,7 @@ export default {
         variant = toastStyles.error;
       }
       this.toaster("Import", message, variant);
+      this.closeModal();
     },
     openModal() {
       this.$refs.modal.show();

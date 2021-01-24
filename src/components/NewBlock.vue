@@ -1,7 +1,7 @@
 <template lang="pug">
   .card.h-100(:class="cardClasses")
     .card-body.text-center(v-if="ready")
-      b-form(v-if="ready", @submit="createBlock")
+      b-form(v-if="ready", @submit.prevent="createBlock")
         b-form-group(label="Block title")
           b-form-input.border-secondary(type="text", v-model="title")
         b-form-group(label="Block color")
