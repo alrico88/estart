@@ -9,12 +9,7 @@ li(:class="linkClass")
         @mouseleave="isHovered = false",
         target="_blank"
       )
-        b-avatar.mr-1(
-          v-if="showFavicons",
-          :src="linkPreview.favicon",
-          :text="linkPreview.fallbackText",
-          :size="20"
-        )
+        link-favicon(v-if="showFavicons", :link="url", :name="title")
         | {{ title }}
     div(v-if="editing")
       b-icon-arrow-up-circle.ml-2.hover-hand(v-if="!isFirst", @click="move('up')")
@@ -27,9 +22,9 @@ import { mapActions, mapState } from "vuex";
 import {
   BIconDashSquare,
   BIconArrowUpCircle,
-  BIconArrowDownCircle,
-  BAvatar
+  BIconArrowDownCircle
 } from "bootstrap-vue";
+import LinkFavicon from "./LinkFavicon.vue";
 
 export default {
   props: {
@@ -64,9 +59,9 @@ export default {
   },
   components: {
     BIconDashSquare,
-    BAvatar,
     BIconArrowUpCircle,
-    BIconArrowDownCircle
+    BIconArrowDownCircle,
+    LinkFavicon
   },
   data() {
     return {
@@ -75,27 +70,6 @@ export default {
   },
   computed: {
     ...mapState(["editing", "ui"]),
-    linkPreview() {
-      let favicon;
-
-      const fallback = this.title.split(" ").reduce((str, word, index) => {
-        if (index < 2) {
-          str += word.charAt(0);
-        }
-        return str;
-      }, "");
-
-      try {
-        const url = new URL(this.url);
-        favicon = url.origin + "/favicon.ico";
-      } catch (e) {
-        favicon = null;
-      }
-      return {
-        favicon,
-        fallbackText: fallback
-      };
-    },
     showFavicons() {
       return this.ui.favicon;
     },
