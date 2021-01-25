@@ -1,17 +1,18 @@
 <template lang="pug">
 li(:class="linkClass")
-  .d-flex
-    .flex-grow-1
-      a(
-        :href="url",
-        :style="style",
-        @mouseenter="isHovered = true",
-        @mouseleave="isHovered = false",
-        target="_blank"
-      )
-        link-favicon(v-if="showFavicons", :link="url", :name="title")
-        | {{ title }}
-    div(v-if="editing")
+  .d-flex.align-items-center
+    .flex-grow-1.truncate-parent
+      .truncate
+        a(
+          :href="url",
+          :style="style",
+          @mouseenter="isHovered = true",
+          @mouseleave="isHovered = false",
+          :target="linkTarget"
+        )
+          link-favicon(v-if="showFavicons", :link="url", :name="title")
+          | {{ title }}
+    div.tool-buttons.text-right(v-if="editing")
       b-icon-arrow-up-circle.ml-2.hover-hand(v-if="!isFirst", @click="move('up')")
       b-icon-arrow-down-circle.ml-2.hover-hand(v-if="!isLast", @click="move('down')")
       b-icon-dash-square.ml-2.text-danger.hover-hand(@click="prepareLinkDelete")
@@ -88,6 +89,9 @@ export default {
     },
     isLast() {
       return this.position === this.linksInBlock - 1;
+    },
+    linkTarget() {
+      return this.ui.openInNewTab ? "_blank" : "_self";
     }
   },
   methods: {
@@ -113,5 +117,19 @@ a:hover {
 
 .hover-hand:hover {
   cursor: pointer;
+}
+
+.truncate-parent {
+  min-width: 0;
+}
+
+.truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tool-buttons {
+  min-width: 80px;
 }
 </style>

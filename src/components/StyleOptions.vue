@@ -16,6 +16,8 @@
         b-form-checkbox(v-model="bordered") Bordered
         b-form-checkbox(v-model="shadowed") Shadowed
         b-form-checkbox(v-model="favicon") Favicons
+      b-form-group(label="Behaviour")
+        b-form-checkbox(v-model="newTab") Open links in new tab
 </template>
 
 <script>
@@ -37,7 +39,8 @@ export default {
     shadowed: genUIComputed("shadowed"),
     favicon: genUIComputed("favicon"),
     clock: genUIComputed("clock"),
-    search: genUIComputed("search")
+    search: genUIComputed("search"),
+    newTab: genUIComputed("openInNewTab")
   },
   methods: {
     ...mapActions(["updateUI"]),

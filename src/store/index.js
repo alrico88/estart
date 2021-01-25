@@ -21,7 +21,8 @@ export default new Vuex.Store({
       shadowed: false,
       favicon: false,
       clock: true,
-      search: true
+      search: true,
+      openInNewTab: true
     }
   },
   getters: {
