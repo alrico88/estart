@@ -2,7 +2,7 @@
   .row
     .col
       // Editing options
-      .row(v-if="showMenu")
+      .row.p-1(v-if="showMenu")
         .col
           ul.list-unstyled.mb-0
             li

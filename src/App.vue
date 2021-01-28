@@ -1,22 +1,23 @@
 <template lang="pug">
-.container.text-center
-  .row.vh-100.align-items-center.justify-content-center.py-5
-    .col-12
-      .row.mb-4(v-if="ui.clock")
-        .col
-          clock
-      .row.mb-5.justify-content-center(v-if="ui.search")
-        .col-8
-          search
-      .row
-        .col
-          blocks-area
-  options-toggler(@open-ie-modal="openImportModal", @open-style-modal="openStyleModal")
-  style-options(ref="styleModal")
-  import-export(ref="importExportModal")
-  b-toast#update-toast(variant="warning", title="Update available", no-auto-hide)
-    p A new version is available, please refresh
-    b-button(variant="warning", @click="refreshApp", size="sm") Reload app
+#app(:style="mainStyle")
+  .container.text-center
+    .row.vh-100.align-items-center.justify-content-center.py-5
+      .col-12
+        .row.mb-4(v-if="ui.clock")
+          .col
+            clock
+        .row.mb-5.justify-content-center(v-if="ui.search")
+          .col-8
+            search
+        .row
+          .col
+            blocks-area
+    options-toggler(@open-ie-modal="openImportModal", @open-style-modal="openStyleModal")
+    style-options(ref="styleModal")
+    import-export(ref="importExportModal")
+    b-toast#update-toast(variant="warning", title="Update available", no-auto-hide)
+      p A new version is available, please refresh
+      b-button(variant="warning", @click="refreshApp", size="sm") Reload app
 
 </template>
 
@@ -46,7 +47,13 @@ export default {
     BButton
   },
   computed: {
-    ...mapState(["ui"])
+    ...mapState(["ui"]),
+    mainStyle() {
+      return {
+        "--body-color": this.ui.bodyColor,
+        "--card-color": this.ui.cardColor
+      };
+    }
   },
   watch: {
     updateExists: {
@@ -71,11 +78,6 @@ export default {
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background: var(--body-color);
 }
 </style>

@@ -22,7 +22,8 @@ export default new Vuex.Store({
       favicon: false,
       clock: true,
       search: true,
-      openInNewTab: true
+      openInNewTab: true,
+      bodyColor: "#212121"
     }
   },
   getters: {

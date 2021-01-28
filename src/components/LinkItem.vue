@@ -3,7 +3,7 @@ li(:class="linkClass")
   .d-flex.align-items-center
     .flex-grow-1.truncate-parent
       .truncate
-        a(
+        a.align-middle(
           :href="url",
           :style="style",
           @mouseenter="isHovered = true",

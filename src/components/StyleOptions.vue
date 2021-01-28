@@ -13,6 +13,13 @@
         b-form-checkbox(v-model="clock") Clock
         b-form-checkbox(v-model="search") Search
       b-form-group(label="Appearance")
+        .d-flex.align-items-center
+          .color-input-parent.mr-2
+            b-form-input.color-input(label="Body color", type="color", v-model="bodyColor")
+          div Background
+          div.ml-2(v-if="resetBodyColorEnabled")
+            a.text-white(href="#", @click="resetBackground")
+              b-icon-backspace-fill
         b-form-checkbox(v-model="bordered") Bordered
         b-form-checkbox(v-model="shadowed") Shadowed
         b-form-checkbox(v-model="favicon") Favicons
@@ -22,7 +29,14 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { BModal, BFormGroup, BFormCheckbox, BForm } from "bootstrap-vue";
+import {
+  BModal,
+  BFormGroup,
+  BFormCheckbox,
+  BForm,
+  BFormInput,
+  BIconBackspaceFill
+} from "bootstrap-vue";
 import { genUIComputed } from "@/helpers/computed";
 
 export default {
@@ -31,7 +45,9 @@ export default {
     BModal,
     BForm,
     BFormGroup,
-    BFormCheckbox
+    BFormCheckbox,
+    BFormInput,
+    BIconBackspaceFill
   },
   computed: {
     ...mapState(["ui"]),
@@ -40,7 +56,12 @@ export default {
     favicon: genUIComputed("favicon"),
     clock: genUIComputed("clock"),
     search: genUIComputed("search"),
-    newTab: genUIComputed("openInNewTab")
+    newTab: genUIComputed("openInNewTab"),
+    bodyColor: genUIComputed("bodyColor"),
+    cardColor: genUIComputed("cardColor"),
+    resetBodyColorEnabled() {
+      return this.bodyColor !== "#212121";
+    }
   },
   methods: {
     ...mapActions(["updateUI"]),
@@ -52,9 +73,21 @@ export default {
     },
     closeModal() {
       this.$refs.modal.hide();
+    },
+    resetBackground() {
+      this.bodyColor = "#212121";
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.color-input-parent {
+  .color-input {
+    width: 1rem;
+    height: 1rem;
+    padding: 0;
+    border: #adb5bd solid 1px;
+  }
+}
+</style>

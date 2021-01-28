@@ -14,7 +14,7 @@
           :position="index",
           :links-in-block="links.length"
         )
-    .card-footer(v-if="editing")
+    .card-footer.p-2(v-if="editing")
       editing-area(:block-id="id", :block-title="title")
 </template>
 
