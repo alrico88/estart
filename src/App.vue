@@ -29,7 +29,7 @@ import OptionsToggler from "@/components/OptionsToggler.vue";
 import ImportExport from "@/components/ImportExport.vue";
 import { BModal, BToast, BButton } from "bootstrap-vue";
 import StyleOptions from "@/components/StyleOptions.vue";
-import { mapState } from "vuex";
+import { mapGetters, mapState } from "vuex";
 import UpdateMixin from "./mixins/UpdateMixin";
 
 export default {
@@ -48,10 +48,14 @@ export default {
   },
   computed: {
     ...mapState(["ui"]),
+    ...mapGetters(["isCustomFont"]),
     mainStyle() {
       return {
         "--body-color": this.ui.bodyColor,
-        "--card-color": this.ui.cardColor
+        "--card-color": this.ui.cardColor,
+        "--font-family": this.isCustomFont
+          ? this.ui.fontFamily
+          : "Jetbrains Mono"
       };
     }
   },
@@ -79,5 +83,6 @@ export default {
 <style lang="scss">
 #app {
   background: var(--body-color);
+  font-family: var(--font-family);
 }
 </style>

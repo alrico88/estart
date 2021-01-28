@@ -23,12 +23,16 @@ export default new Vuex.Store({
       clock: true,
       search: true,
       openInNewTab: true,
-      bodyColor: "#212121"
+      bodyColor: "#212121",
+      fontFamily: ""
     }
   },
   getters: {
     getBlocksHash: state => () => {
       return encryptor.encrypt(state.blocks);
+    },
+    isCustomFont(state) {
+      return state.ui.fontFamily !== "";
     }
   },
   mutations: {
