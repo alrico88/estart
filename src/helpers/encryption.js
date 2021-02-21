@@ -21,8 +21,6 @@ export class Encryptor {
    * @return {any}
    */
   decrypt(string) {
-    const decrypted = this.cryptor.decode(string);
-
-    return decrypted;
+    return this.cryptor.decode(string);
   }
 }
