@@ -1,7 +1,7 @@
 <template lang="pug">
 #app(:style="mainStyle")
   .container.text-center
-    .row.vh-100.align-items-center.justify-content-center.py-5
+    .row.full-height.align-items-center.justify-content-center.py-5
       .col-12
         .row.mb-4(v-if="ui.clock")
           .col
@@ -84,5 +84,10 @@ export default {
 #app {
   background: var(--body-color);
   font-family: var(--font-family);
+
+  .full-height {
+    min-height: 100vh;
+    height: 100%;
+  }
 }
 </style>
