@@ -13,16 +13,19 @@
         b-form-checkbox(v-model="clock") Clock
         b-form-checkbox(v-model="search") Search
       b-form-group(label="Appearance")
-        .d-flex.align-items-center
-          .color-input-parent.mr-2
-            b-form-input.color-input(label="Body color", type="color", v-model="bodyColor")
-          div Background
-          div.ml-2(v-if="resetBodyColorEnabled")
-            a.text-white(href="#", @click="resetBackground")
-              b-icon-backspace-fill
         b-form-checkbox(v-model="bordered") Bordered
         b-form-checkbox(v-model="shadowed") Shadowed
         b-form-checkbox(v-model="favicon") Favicons
+      b-form-group(label="Background")
+        .text-small
+          b-form-group.mb-1(label="Solid color")
+            .d-flex.align-items-center
+              b-form-input.color-input(label="Body color", type="color", v-model="bodyColor")
+              div.ml-2(v-if="resetBodyColorEnabled")
+                a.text-white(href="#", @click="resetBackground")
+                  b-icon-backspace-fill
+          b-form-group(label="Image background", description="Overrides solid color")
+            b-form-input(type="text", v-model="backgroundImage")
       b-form-group(label="Custom font family", description="Font must be installed in your system")
         b-input-group
           b-form-input(
@@ -76,6 +79,7 @@ export default {
     bodyColor: genUIComputed("bodyColor"),
     cardColor: genUIComputed("cardColor"),
     fontFamily: genUIComputed("fontFamily"),
+    backgroundImage: genUIComputed("backgroundImage"),
     resetBodyColorEnabled() {
       return this.bodyColor !== "#212121";
     }
@@ -102,12 +106,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.color-input-parent {
-  .color-input {
-    width: 1rem;
-    height: 1rem;
-    padding: 0;
-    border: #adb5bd solid 1px;
-  }
+.text-small {
+  font-size: 0.8rem;
 }
 </style>

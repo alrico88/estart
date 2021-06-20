@@ -50,12 +50,17 @@ export default {
     ...mapState(["ui"]),
     ...mapGetters(["isCustomFont"]),
     mainStyle() {
+      const { ui } = this;
+
+      const background =
+        ui.backgroundImage !== ""
+          ? `url('${ui.backgroundImage}')`
+          : ui.bodyColor;
+
       return {
-        "--body-color": this.ui.bodyColor,
-        "--card-color": this.ui.cardColor,
-        "--font-family": this.isCustomFont
-          ? this.ui.fontFamily
-          : "Jetbrains Mono"
+        "--body-color": background,
+        "--card-color": ui.cardColor,
+        "--font-family": this.isCustomFont ? ui.fontFamily : "Jetbrains Mono"
       };
     }
   },
@@ -84,6 +89,7 @@ export default {
 #app {
   background: var(--body-color);
   font-family: var(--font-family);
+  background-size: cover;
 
   .full-height {
     min-height: 100vh;

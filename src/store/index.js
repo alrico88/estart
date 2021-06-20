@@ -24,7 +24,8 @@ export default new Vuex.Store({
       search: true,
       openInNewTab: true,
       bodyColor: "#212121",
-      fontFamily: ""
+      fontFamily: "",
+      backgroundImage: ""
     }
   },
   getters: {
