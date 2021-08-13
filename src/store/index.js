@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import VuexPersistence from "vuex-persist";
 import { Encryptor } from "@/helpers/encryption";
-import arrayMove from "array-move";
+import { arrayMoveImmutable } from "array-move";
 
 const encryptor = new Encryptor();
 
@@ -118,7 +118,7 @@ export default new Vuex.Store({
       const blocksCopy = [...state.blocks];
       const blockPos = blocksCopy.findIndex(d => d.id === blockId);
       if (blockPos !== -1) {
-        blocksCopy[blockPos].links = arrayMove(
+        blocksCopy[blockPos].links = arrayMoveImmutable(
           blocksCopy[blockPos].links,
           currentIndex,
           newIndex

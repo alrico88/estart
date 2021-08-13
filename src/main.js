@@ -5,6 +5,7 @@ import store from "./store";
 import "./assets/main.scss";
 import { ToastPlugin } from "bootstrap-vue";
 import VueClipboard from "vue-clipboard2";
+import "@fontsource/jetbrains-mono";
 
 VueClipboard.config.autoSetContainer = true; // add this line
 
