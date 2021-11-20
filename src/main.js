@@ -6,11 +6,13 @@ import "./assets/main.scss";
 import { ToastPlugin } from "bootstrap-vue";
 import VueClipboard from "vue-clipboard2";
 import "@fontsource/jetbrains-mono";
+import VueCompositionAPI from "@vue/composition-api";
 
 VueClipboard.config.autoSetContainer = true; // add this line
 
 Vue.use(VueClipboard);
 Vue.use(ToastPlugin);
+Vue.use(VueCompositionAPI);
 
 Vue.config.productionTip = false;
 
