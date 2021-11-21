@@ -41,7 +41,7 @@ export default {
       return classes;
     });
 
-    const asDayJS = dayjs(now.value);
+    const asDayJS = computed(() => dayjs(now.value));
 
     return {
       date: asDayJS.format("dddd, DD MMMM YYYY"),
