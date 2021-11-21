@@ -1,35 +1,39 @@
 <template lang="pug">
-  .card.h-100(:class="cardClasses")
-    .card-body.text-center
-      p.lead.font-weight-bold.mt-1(:style="titleStyle", :contenteditable="editing", @input="changeTitle") {{title}}
-      ul.list-unstyled.mb-0
-        link-item(
-          v-for="(link, index) of links",
-          :key="link.id",
-          :block-id="id",
-          :id="link.id",
-          :title="link.name",
-          :url="link.url",
-          :color="color",
-          :position="index",
-          :links-in-block="links.length"
-        )
-    .card-footer.p-2(v-if="editing")
-      editing-area(:block-id="id", :block-title="title")
+.card.h-100(:class="cardStyle")
+  .card-body.text-center
+    p.lead.font-weight-bold.mt-1(
+      :style="titleStyle", 
+      :contenteditable="editing", 
+      @input="changeTitle"
+    ) {{title}}
+    ul.list-unstyled.mb-0
+      link-item(
+        v-for="(link, index) of links",
+        :key="link.id",
+        :block-id="id",
+        :id="link.id",
+        :title="link.name",
+        :url="link.url",
+        :color="color",
+        :position="index",
+        :links-in-block="links.length"
+      )
+  .card-footer.p-2(v-if="editing")
+    editing-area(:block-id="id", :block-title="title")
 </template>
 
 <script>
 import LinkItem from "./LinkItem.vue";
-import { mapActions, mapState } from "vuex";
 import LinksBlockEditingArea from "@/components/LinksBlockEditingArea.vue";
-import BlockMixin from "@/mixins/BlockMixin";
+import { computed } from "@vue/composition-api";
+import { useActions, useState } from "vuex-composition-helpers";
+import { useBlockUI } from "../composables/block";
 
 export default {
   components: {
     LinkItem,
     EditingArea: LinksBlockEditingArea
   },
-  mixins: [BlockMixin],
   props: {
     id: {
       type: String,
@@ -49,22 +53,31 @@ export default {
       default: () => []
     }
   },
-  computed: {
-    ...mapState(["editing"]),
-    titleStyle() {
+  setup(props) {
+    const { ui, editing } = useState(["ui", "editing"]);
+    const { changeBlockTitle } = useActions(["changeBlockTitle"]);
+
+    const { cardStyle } = useBlockUI(ui);
+
+    const titleStyle = computed(() => {
       return {
-        color: this.color
+        color: props.color
       };
-    }
-  },
-  methods: {
-    ...mapActions(["changeBlockTitle"]),
-    changeTitle($event) {
-      this.changeBlockTitle({
+    });
+
+    function changeTitle($event) {
+      changeBlockTitle({
         blockId: this.id,
         title: $event.target.innerText
       });
     }
+
+    return {
+      cardStyle,
+      changeTitle,
+      titleStyle,
+      editing
+    };
   }
 };
 </script>

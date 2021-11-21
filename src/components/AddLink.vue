@@ -1,20 +1,23 @@
 <template lang="pug">
-  .card.bg-dark.border-secondary
-    .card-body
-      b-form.text-left(@submit="prepareLink")
-        h5 New link
-        b-form-group(label="Name", size="sm")
-          b-form-input(type="text", size="sm", v-model="linkName")
-        b-form-group(label="URL")
-          b-form-input(type="text", size="sm", v-model="linkUrl")
-        b-button(type="submit", :disabled="notReady", variant="primary", size="sm") Add
-        b-button.ml-2(variant="secondary", size="sm", @click="cancel") Discard
+.card.bg-dark.border-secondary
+  .card-body
+    b-form.text-left(@submit="prepareLink")
+      h5 New link
+      b-form-group(label="Name", size="sm")
+        b-form-input(type="text", size="sm", v-model="link.name")
+      b-form-group(label="URL")
+        b-form-input(type="text", size="sm", v-model="link.url")
+      b-button(type="submit", :disabled="notReady", variant="primary", size="sm") Add
+      b-button.ml-2(variant="secondary", size="sm", @click="cancel") Discard
 </template>
 
 <script>
 import { Link } from "@/helpers/classes";
-import { mapActions } from "vuex";
 import { BForm, BFormGroup, BFormInput, BButton } from "bootstrap-vue";
+import { reactive, computed, toRefs } from "@vue/composition-api";
+import { useURL } from "../composables/url";
+import is from "@sindresorhus/is";
+import { useActions } from "vuex-composition-helpers";
 
 export default {
   name: "AddLink",
@@ -30,40 +33,46 @@ export default {
     BFormGroup,
     BButton
   },
-  data() {
-    return {
-      linkName: "",
-      linkUrl: ""
-    };
-  },
-  computed: {
-    isValidURL() {
-      try {
-        new URL(this.linkUrl);
-        return true;
-      } catch (e) {
-        return false;
-      }
-    },
-    notReady() {
-      return this.linkName === "" || this.linkUrl === "" || !this.isValidURL;
-    }
-  },
-  methods: {
-    ...mapActions(["addLink"]),
-    prepareLink() {
-      const { linkName, linkUrl } = this;
+  emit: ["done", "cancelled"],
+  setup(props, { emit }) {
+    const { addLink } = useActions(["addLink"]);
 
-      this.addLink({
-        blockId: this.blockId,
-        link: new Link(linkName, linkUrl)
+    const link = reactive({
+      name: "",
+      url: ""
+    });
+
+    const { url } = toRefs(link);
+
+    const { isValidURL } = useURL(url);
+
+    const notReady = computed(() => {
+      return (
+        is.emptyStringOrWhitespace(link.name) ||
+        is.emptyStringOrWhitespace(link.url) ||
+        !isValidURL.value
+      );
+    });
+
+    function prepareLink() {
+      addLink({
+        blockId: props.blockId,
+        link: new Link(link.name, link.url)
       });
 
-      this.$emit("done");
-    },
-    cancel() {
-      this.$emit("cancelled");
+      emit("done");
     }
+
+    function cancel() {
+      emit("cancelled");
+    }
+
+    return {
+      link,
+      notReady,
+      prepareLink,
+      cancel
+    };
   }
 };
 </script>

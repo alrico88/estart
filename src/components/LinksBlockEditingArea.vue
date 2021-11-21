@@ -1,17 +1,17 @@
 <template lang="pug">
-  .row
-    .col
-      // Editing options
-      .row.p-1(v-if="showMenu")
-        .col
-          ul.list-unstyled.mb-0
-            li
-              a(href="#", @click.prevent="toggleLinkAdd") Add link
-            li
-              a.text-danger(href="#", @click.prevent="deleteBlock") Delete block
-      .row(v-if="ui.addLink")
-        .col
-          add-link(:block-id="blockId", @done="resetUI", @cancelled="resetUI")
+.row
+  .col
+    // Editing options
+    .row.p-1(v-if="showMenu")
+      .col
+        ul.list-unstyled.mb-0
+          li
+            a(href="#", @click.prevent="toggleLinkAdd") Add link
+          li
+            a.text-danger(href="#", @click.prevent="deleteBlock") Delete block
+    .row(v-if="ui.addLink")
+      .col
+        add-link(:block-id="blockId", @done="resetUI", @cancelled="resetUI")
 </template>
 
 <script>
@@ -22,8 +22,9 @@ import {
   BIconPlus,
   BIconTrash
 } from "bootstrap-vue";
-import { mapActions } from "vuex";
 import AddLink from "@/components/AddLink.vue";
+import { reactive, computed, toRefs } from "@vue/composition-api";
+import { useActions } from "vuex-composition-helpers";
 
 export default {
   name: "LinksBlockEditingArea",
@@ -45,35 +46,40 @@ export default {
     BFormInput,
     AddLink
   },
-  data() {
-    return {
-      ui: {
-        addLink: false,
-        deleteBlock: false
-      }
-    };
-  },
-  computed: {
-    showMenu() {
-      const { ui } = this;
-      return ui.addLink === false && ui.deleteBlock === false;
+  setup(props) {
+    const { removeBlock } = useActions(["removeBlock"]);
+    const { blockId, blockTitle } = toRefs(props);
+
+    const ui = reactive({
+      addLink: false,
+      deleteBlock: false
+    });
+
+    const showMenu = computed(() => !ui.addLink && !ui.deleteBlock);
+
+    function toggleLinkAdd() {
+      ui.addLink = true;
     }
-  },
-  methods: {
-    ...mapActions(["removeBlock"]),
-    toggleLinkAdd() {
-      this.ui.addLink = true;
-    },
-    deleteBlock() {
-      const res = confirm(`Do you really want to delete ${this.blockTitle}?`);
+
+    function deleteBlock() {
+      const res = confirm(`Do you really want to delete ${blockTitle.value}?`);
       if (res) {
-        this.removeBlock(this.blockId);
+        removeBlock(blockId.value);
       }
-    },
-    resetUI() {
-      this.ui.addLink = false;
-      this.ui.deleteBlock = false;
     }
+
+    function resetUI() {
+      ui.deleteBlock = false;
+      ui.addLink = false;
+    }
+
+    return {
+      ui,
+      toggleLinkAdd,
+      deleteBlock,
+      resetUI,
+      showMenu
+    };
   }
 };
 </script>

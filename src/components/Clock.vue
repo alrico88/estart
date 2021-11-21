@@ -1,64 +1,55 @@
 <template lang="pug">
-  p.mb-0(:class="clockClasses") {{dayOfWeek | getDayOfWeek}}, {{day}} {{month | getMonth}} {{year}} - {{hours | fixZeros}}{{showDots ? ':' : ' '}}{{minutes | fixZeros}}
+p.mb-0(:class="clockClasses") {{ date }} - {{ hours }}{{ showDots ? ':' : ' ' }}{{ minutes }}
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { daysOfWeek, months } from "@/helpers/strings";
-
-const startDate = new Date();
+import { useNow } from "@vueuse/core";
+import { ref, computed, onMounted, onDeactivated } from "@vue/composition-api";
+import dayjs from "dayjs";
+import { useState } from "vuex-composition-helpers";
 
 export default {
-  filters: {
-    fixZeros(num) {
-      return num.toString().length === 1 ? `0${num}` : num;
-    },
-    getMonth(monthNum) {
-      return months[monthNum];
-    },
-    getDayOfWeek(dayOfWeekAsNum) {
-      return daysOfWeek[dayOfWeekAsNum];
-    }
-  },
-  data() {
-    return {
-      hours: startDate.getHours(),
-      minutes: startDate.getMinutes(),
-      month: startDate.getMonth(),
-      day: startDate.getDate(),
-      dayOfWeek: startDate.getDay(),
-      year: startDate.getFullYear(),
-      showDots: true
-    };
-  },
-  computed: {
-    ...mapState(["ui"]),
-    clockClasses() {
+  setup() {
+    const { ui } = useState(["ui"]);
+
+    const now = useNow();
+
+    const showDots = ref(true);
+
+    let interval = null;
+
+    onMounted(() => {
+      interval = setInterval(() => {
+        showDots.value = !showDots.value;
+      }, 1000);
+    });
+
+    onDeactivated(() => {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+      }
+    });
+
+    const clockClasses = computed(() => {
       const classes = [];
 
-      if (this.ui.shadowed) {
+      if (ui.value.shadowed) {
         classes.push("text-shadow");
       }
 
       return classes;
-    }
-  },
-  mounted() {
-    setInterval(() => {
-      this.updateTime();
-    }, 1000);
-  },
-  methods: {
-    updateTime() {
-      const now = new Date();
-      this.hours = now.getHours();
-      this.minutes = now.getMinutes();
-      this.day = now.getDate();
-      this.month = now.getMonth();
-      this.dayOfWeek = now.getDay();
-      this.year = now.getFullYear();
-      this.showDots = !this.showDots;
-    }
+    });
+
+    const asDayJS = dayjs(now.value);
+
+    return {
+      date: asDayJS.format("dddd, DD MMMM YYYY"),
+      hours: asDayJS.format("HH"),
+      minutes: asDayJS.format("mm"),
+      showDots,
+      clockClasses
+    };
   }
 };
 </script>

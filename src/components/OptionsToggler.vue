@@ -1,32 +1,40 @@
 <template lang="pug">
-  .ul.list-inline.edit-toggler
-    li.list-inline-item
-      a.text-success(href="#", v-show="editing", @click.prevent="toggleEditing") Done editing
-      a(href="#", v-show="!editing", @click.prevent="toggleEditing") Edit
-    li.list-inline-item.cursor-default -
-    li.list-inline-item
-      a(href="#", @click.prevent="openStyleModal") Style
-    li.list-inline-item.cursor-default -
-    li.list-inline-item
-      a(href="#", @click.prevent="openImportExportModal") Import / export
+.ul.list-inline.edit-toggler
+  li.list-inline-item
+    a.text-success(href="#", v-show="editing", @click.prevent="toggleEditing") Done editing
+    a(href="#", v-show="!editing", @click.prevent="toggleEditing") Edit
+  li.list-inline-item.cursor-default -
+  li.list-inline-item
+    a(href="#", @click.prevent="openStyleModal") Style
+  li.list-inline-item.cursor-default -
+  li.list-inline-item
+    a(href="#", @click.prevent="openImportExportModal") Import / export
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { useActions, useState } from "vuex-composition-helpers";
 
 export default {
   name: "OptionsToggler",
-  computed: {
-    ...mapState(["editing"])
-  },
-  methods: {
-    ...mapActions(["toggleEditing"]),
-    openImportExportModal() {
-      this.$emit("open-ie-modal");
-    },
-    openStyleModal() {
-      this.$emit("open-style-modal");
+  emit: ["open-ie-modal", "open-style-modal"],
+  setup(_, { emit }) {
+    const { editing } = useState(["editing"]);
+    const { toggleEditing } = useActions(["toggleEditing"]);
+
+    function openImportExportModal() {
+      emit("open-ie-modal");
     }
+
+    function openStyleModal() {
+      emit("open-style-modal");
+    }
+
+    return {
+      editing,
+      toggleEditing,
+      openImportExportModal,
+      openStyleModal
+    };
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template lang="pug">
 .row
   .col
-    .row.row-cols-1.row-cols-sm-2.row-cols-md-4.justify-content-center(v-for="chunk of blockChunks")
+    .row.row-cols-1.row-cols-sm-2.row-cols-lg-4.justify-content-center(v-for="chunk of blockChunks")
       .col.my-3(v-for="block of chunk")
         links-block(
           :id="block.id",
@@ -16,28 +16,34 @@
 <script>
 import LinksBlock from "./LinksBlock.vue";
 import NewBlock from "@/components/NewBlock.vue";
-import { mapState } from "vuex";
 import chunk from "lodash/chunk";
+import { computed } from "@vue/composition-api";
+import { useState } from "vuex-composition-helpers";
 
 export default {
   components: {
     LinksBlock,
     NewBlock
   },
-  data() {
-    return {
-      maxBlocksPerChunk: 4
-    };
-  },
-  computed: {
-    ...mapState(["blocks", "editing"]),
-    blockChunks() {
-      const { blocks, maxBlocksPerChunk } = this;
-      const chunked = chunk(blocks, maxBlocksPerChunk);
-      const notFullYet = chunked.some(d => d.length < maxBlocksPerChunk);
+  setup() {
+    const { blocks, editing } = useState(["blocks", "editing"]);
+    const maxBlocksPerChunk = 4;
 
-      return notFullYet ? chunked : [...chunked, []];
-    }
+    const blockChunks = computed(() => {
+      {
+        const chunked = chunk(blocks.value, maxBlocksPerChunk);
+        const notFullYet = chunked.some(d => d.length < maxBlocksPerChunk);
+
+        return notFullYet ? chunked : [...chunked, []];
+      }
+    });
+
+    return {
+      maxBlocksPerChunk,
+      blocks,
+      editing,
+      blockChunks
+    };
   }
 };
 </script>

@@ -48,7 +48,6 @@ export default {
   emit: ["search"],
   setup(_, { emit }) {
     function acceptSuggestion(suggestion) {
-      console.log("Aceptanding", suggestion);
       emit("search", suggestion);
     }
 

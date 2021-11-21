@@ -30,13 +30,14 @@
 
 <script>
 import { BForm, BFormGroup, BFormInput, BFormSelect } from "bootstrap-vue";
-import { mapState } from "vuex";
+import { useState } from "vuex-composition-helpers";
 import { useFocus } from "../composables/focus";
 import { useHoverer } from "../composables/hoverer";
 import { useSearch } from "../composables/search";
 import { useSuggestions } from "../composables/suggestions";
 import { keyEmitter } from "../emitters/suggestions";
 import Suggestions from "./Suggestions.vue";
+import { computed } from "@vue/composition-api";
 
 export default {
   components: {
@@ -46,24 +47,9 @@ export default {
     BFormSelect,
     Suggestions
   },
-  computed: {
-    ...mapState(["editing", "ui"]),
-    inputClasses() {
-      const classes = [];
-      const ui = this.ui;
-
-      if (ui.shadowed) {
-        classes.push("shadow");
-      }
-
-      if (ui.bordered) {
-        classes.push("border-secondary");
-      }
-
-      return classes;
-    }
-  },
   setup() {
+    const { editing, ui } = useState(["editing", "ui"]);
+
     const {
       query,
       providers,
@@ -76,8 +62,6 @@ export default {
 
     function setQuery(val) {
       query.value = val;
-
-      console.log(val, "buscando");
 
       goSearch();
     }
@@ -103,7 +87,22 @@ export default {
       }
     }
 
+    const inputClasses = computed(() => {
+      const classes = [];
+
+      if (ui.value.shadowed) {
+        classes.push("shadow");
+      }
+
+      if (ui.value.bordered) {
+        classes.push("border-secondary");
+      }
+
+      return classes;
+    });
+
     return {
+      editing,
       query,
       providers,
       selectedProvider,
@@ -115,7 +114,8 @@ export default {
       handleKeyDown,
       hovered,
       loading,
-      suggestions
+      suggestions,
+      inputClasses
     };
   }
 };

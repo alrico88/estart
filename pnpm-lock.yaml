@@ -3,6 +3,7 @@ lockfileVersion: 5.3
 specifiers:
   '@babel/eslint-parser': ^7.15.0
   '@fontsource/jetbrains-mono': ^4.5.0
+  '@sindresorhus/is': ^4.2.0
   '@vue/cli-plugin-babel': ~4.5.0
   '@vue/cli-plugin-eslint': ~4.5.0
   '@vue/cli-plugin-pwa': ~4.5.0
@@ -10,12 +11,14 @@ specifiers:
   '@vue/cli-service': ~4.5.0
   '@vue/composition-api': ^1.4.0
   '@vue/eslint-config-prettier': ^6.0.0
+  '@vueuse/core': ^7.0.0
   array-move: ^4.0.0
   axios: ^0.24.0
-  bootstrap: ^4.6.0
+  bootstrap: ^4.6.1
   bootstrap-vue: ^2.21.2
   core-js: ^3.6.5
   cryptorjs: ^3.0.0
+  dayjs: ^1.10.7
   eslint: ^6.7.2
   eslint-plugin-prettier: ^3.1.3
   eslint-plugin-vue: ^6.2.2
@@ -33,18 +36,22 @@ specifiers:
   vue-cli-plugin-pug: ~2.0.0
   vue-clipboard2: ^0.3.1
   vue-template-compiler: ^2.6.11
-  vuex: ^3.4.0
+  vuex: ^3.6.2
+  vuex-composition-helpers: ^1.0.23
   vuex-persist: ^3.1.3
 
 dependencies:
   '@fontsource/jetbrains-mono': 4.5.0
+  '@sindresorhus/is': 4.2.0
   '@vue/composition-api': 1.4.0_vue@2.6.14
+  '@vueuse/core': 7.0.0_5f1bd7414a2bfaaedeb8e06aba7234f1
   array-move: 4.0.0
   axios: 0.24.0
-  bootstrap: 4.6.0
+  bootstrap: 4.6.1
   bootstrap-vue: 2.21.2_vue@2.6.14
   core-js: 3.16.1
   cryptorjs: 3.0.0
+  dayjs: 1.10.7
   lodash: 4.17.21
   mitt: 3.0.0
   nanoid: 3.1.25
@@ -54,6 +61,7 @@ dependencies:
   vue: 2.6.14
   vue-clipboard2: 0.3.1
   vuex: 3.6.2_vue@2.6.14
+  vuex-composition-helpers: 1.0.23
   vuex-persist: 3.1.3_vuex@3.6.2
 
 devDependencies:
@@ -1312,6 +1320,11 @@ packages:
       node-fetch: 2.6.1
     dev: false
 
+  /@sindresorhus/is/4.2.0:
+    resolution: {integrity: sha512-VkE3KLBmJwcCaVARtQpfuKcKv8gcBmUubrfHGF84dXuuW6jgsRYxPtzcIhPyK9WAPpRt2/xY6zkD9MnRaJzSyw==}
+    engines: {node: '>=10'}
+    dev: false
+
   /@soda/friendly-errors-webpack-plugin/1.8.0_webpack@4.46.0:
     resolution: {integrity: sha512-RLotfx6k1+nfLacwNCenj7VnTMPxVwYKoGOcffMFoJDKM8tXzBiCN0hMHFJNnoAojduYAsxuiMm0EOMixgiRow==}
     engines: {node: '>=8.0.0'}
@@ -1850,6 +1863,39 @@ packages:
   /@vue/web-component-wrapper/1.3.0:
     resolution: {integrity: sha512-Iu8Tbg3f+emIIMmI2ycSI8QcEuAUgPTgHwesDU1eKMLE4YC/c/sFbGc70QgMq31ijRftV0R7vCm9co6rldCeOA==}
     dev: true
+
+  /@vueuse/core/7.0.0_5f1bd7414a2bfaaedeb8e06aba7234f1:
+    resolution: {integrity: sha512-dhf10icxd7w16AVaOtriVkum+CdCjskV0wht/kpGnOb2NbYBeXuiZNruMA+w8DaRPO4oXW8UhAix/S8HCz9OlQ==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@vue/composition-api': 1.4.0_vue@2.6.14
+      '@vueuse/shared': 7.0.0_5f1bd7414a2bfaaedeb8e06aba7234f1
+      vue: 2.6.14
+      vue-demi: 0.12.1_5f1bd7414a2bfaaedeb8e06aba7234f1
+    dev: false
+
+  /@vueuse/shared/7.0.0_5f1bd7414a2bfaaedeb8e06aba7234f1:
+    resolution: {integrity: sha512-TG4FSjiFCTn4srJO8j9Ax4OOVKrBWgcRJY54+mHqYINEk95FFuCvk7cE642Byxq6eGTMTZRw+f8ufFIA9tqXig==}
+    peerDependencies:
+      '@vue/composition-api': ^1.1.0
+      vue: ^2.6.0 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      '@vue/composition-api': 1.4.0_vue@2.6.14
+      vue: 2.6.14
+      vue-demi: 0.12.1_5f1bd7414a2bfaaedeb8e06aba7234f1
+    dev: false
 
   /@webassemblyjs/ast/1.9.0:
     resolution: {integrity: sha512-C6wW5L+b7ogSDVqymbkkvuW9kruN//YisMED04xzeBBqjHa2FYnmvOlS6Xj68xWQRgWvI9cIglsjFowH/RJyEA==}
@@ -2488,7 +2534,7 @@ packages:
     requiresBuild: true
     dependencies:
       '@nuxt/opencollective': 0.3.2
-      bootstrap: 4.6.0_popper.js@1.16.1
+      bootstrap: 4.6.1_popper.js@1.16.1
       popper.js: 1.16.1
       portal-vue: 2.1.7_vue@2.6.14
       vue-functional-data-merge: 3.1.0
@@ -2497,15 +2543,15 @@ packages:
       - vue
     dev: false
 
-  /bootstrap/4.6.0:
-    resolution: {integrity: sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==}
+  /bootstrap/4.6.1:
+    resolution: {integrity: sha512-0dj+VgI9Ecom+rvvpNZ4MUZJz8dcX7WCX+eTID9+/8HgOkv3dsRzi8BGeZJCQU6flWQVYxwTQnEZFrmJSEO7og==}
     peerDependencies:
       jquery: 1.9.1 - 3
       popper.js: ^1.16.1
     dev: false
 
-  /bootstrap/4.6.0_popper.js@1.16.1:
-    resolution: {integrity: sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==}
+  /bootstrap/4.6.1_popper.js@1.16.1:
+    resolution: {integrity: sha512-0dj+VgI9Ecom+rvvpNZ4MUZJz8dcX7WCX+eTID9+/8HgOkv3dsRzi8BGeZJCQU6flWQVYxwTQnEZFrmJSEO7og==}
     peerDependencies:
       jquery: 1.9.1 - 3
       popper.js: ^1.16.1
@@ -3467,6 +3513,10 @@ packages:
     dependencies:
       assert-plus: 1.0.0
     dev: true
+
+  /dayjs/1.10.7:
+    resolution: {integrity: sha512-P6twpd70BcPK34K26uJ1KT3wlhpuOAPoMwJzpsIWUxHZ7wpmbdZL/hQqBDfz7hGurYSa5PhzdhDHtt319hL3ig==}
+    dev: false
 
   /de-indent/1.0.2:
     resolution: {integrity: sha1-sgOOhG3DO6pXlhKNCAS0VbjB4h0=}
@@ -8845,6 +8895,22 @@ packages:
       clipboard: 2.0.8
     dev: false
 
+  /vue-demi/0.12.1_5f1bd7414a2bfaaedeb8e06aba7234f1:
+    resolution: {integrity: sha512-QL3ny+wX8c6Xm1/EZylbgzdoDolye+VpCXRhI2hug9dJTP3OUJ3lmiKN3CsVV3mOJKwFi0nsstbgob0vG7aoIw==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      '@vue/composition-api': 1.4.0_vue@2.6.14
+      vue: 2.6.14
+    dev: false
+
   /vue-eslint-parser/7.10.0_eslint@6.8.0:
     resolution: {integrity: sha512-7tc/ewS9Vq9Bn741pvpg8op2fWJPH3k32aL+jcIcWGCTzh/zXSdh7pZ5FV3W2aJancP9+ftPAv292zY5T5IPCg==}
     engines: {node: '>=8.10'}
@@ -8928,6 +8994,10 @@ packages:
 
   /vue/2.6.14:
     resolution: {integrity: sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==}
+    dev: false
+
+  /vuex-composition-helpers/1.0.23:
+    resolution: {integrity: sha512-TZZ46Jj9Shq5mOgrQVn59fmVI1bOqEaidQjbw8qkmLRxjyJdQ6j9MxYg0Xo5QgS3dEdKNFJLHRgtCpkf57Gnjw==}
     dev: false
 
   /vuex-persist/3.1.3_vuex@3.6.2:

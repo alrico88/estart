@@ -19,13 +19,14 @@ li(:class="linkClass")
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
 import {
   BIconDashSquare,
   BIconArrowUpCircle,
   BIconArrowDownCircle
 } from "bootstrap-vue";
 import LinkFavicon from "./LinkFavicon.vue";
+import { useState, useActions } from "vuex-composition-helpers";
+import { ref, computed, toRefs } from "@vue/composition-api";
 
 export default {
   props: {
@@ -64,48 +65,61 @@ export default {
     BIconArrowDownCircle,
     LinkFavicon
   },
-  data() {
-    return {
-      isHovered: false
-    };
-  },
-  computed: {
-    ...mapState(["editing", "ui"]),
-    showFavicons() {
-      return this.ui.favicon;
-    },
-    style() {
+  setup(props) {
+    const { position, blockId, id, linksInBlock, color } = toRefs(props);
+
+    const { deleteLink, moveLink } = useActions(["deleteLink", "moveLink"]);
+    const { editing, ui } = useState(["editing", "ui"]);
+
+    const isHovered = ref(false);
+
+    const showFavicons = computed(() => ui.value.favicon);
+    const style = computed(() => {
       return {
-        color: this.isHovered ? this.color : "#9e9e9e"
+        color: isHovered.value ? color.value : "#9e9e9e"
       };
-    },
-    linkClass() {
+    });
+    const linkClass = computed(() => {
       return {
-        "text-left": this.editing
+        "text-left": editing.value
       };
-    },
-    isFirst() {
-      return this.position === 0;
-    },
-    isLast() {
-      return this.position === this.linksInBlock - 1;
-    },
-    linkTarget() {
-      return this.ui.openInNewTab ? "_blank" : "_self";
-    }
-  },
-  methods: {
-    ...mapActions(["deleteLink", "moveLink"]),
-    prepareLinkDelete() {
+    });
+
+    const isFirst = computed(() => position.value === 0);
+    const isLast = computed(() => position.value === linksInBlock.value - 1);
+
+    const linkTarget = computed(() =>
+      ui.value.openInNewTab ? "_blank" : "_self"
+    );
+
+    function prepareLinkDelete() {
       const res = confirm("Are you sure?");
       if (res) {
-        this.deleteLink({ blockId: this.blockId, linkId: this.id });
+        deleteLink({ blockId: blockId.value, linkId: id.value });
       }
-    },
-    move(direction) {
-      const { blockId, position } = this;
-      this.moveLink({ blockId, currentIndex: position, direction });
     }
+
+    function move(direction) {
+      moveLink({
+        blockId: blockId.value,
+        currentIndex: position.value,
+        direction
+      });
+    }
+
+    return {
+      isHovered,
+      showFavicons,
+      style,
+      linkClass,
+      isFirst,
+      isLast,
+      linkTarget,
+      prepareLinkDelete,
+      move,
+      ui,
+      editing
+    };
   }
 };
 </script>

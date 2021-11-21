@@ -88,7 +88,6 @@ export default new Vuex.Store({
           blocksCopy[blockPos].links.splice(linkPos, 1);
         }
       }
-      console.log(blockId, linkId, blocksCopy);
       commit("changeBlocks", blocksCopy);
     },
     importBlocks({ commit }, hash) {
@@ -124,8 +123,6 @@ export default new Vuex.Store({
           newIndex
         );
       }
-
-      console.log(blocksCopy);
 
       commit("changeBlocks", blocksCopy);
     }
