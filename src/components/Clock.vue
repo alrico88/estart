@@ -1,5 +1,5 @@
 <template lang="pug">
-p.mb-0(:class="clockClasses") {{ date }} - {{ hours }}{{ showDots ? ':' : ' ' }}{{ minutes }}
+p.mb-0(:class="clockClasses") {{ formatted.date }} - {{ formatted.hours }}{{ showDots ? ':' : ' ' }}{{ formatted.minutes }}
 </template>
 
 <script>
@@ -41,12 +41,18 @@ export default {
       return classes;
     });
 
-    const asDayJS = computed(() => dayjs(now.value));
+    const formatted = computed(() => {
+      const asDayJS = dayjs(now.value);
+
+      return {
+        hours: asDayJS.format("HH"),
+        minutes: asDayJS.format("mm"),
+        date: asDayJS.format("dddd, DD MMMM YYYY")
+      };
+    });
 
     return {
-      date: asDayJS.format("dddd, DD MMMM YYYY"),
-      hours: asDayJS.format("HH"),
-      minutes: asDayJS.format("mm"),
+      formatted,
       showDots,
       clockClasses
     };
