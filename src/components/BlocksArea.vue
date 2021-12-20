@@ -2,7 +2,7 @@
 .row
   .col
     .row.row-cols-1.row-cols-sm-2.row-cols-lg-4.justify-content-center(v-for="chunk of blockChunks")
-      .col.my-3(v-for="block of chunk")
+      .col.my-3(v-for="block of chunk", :key="block.id")
         links-block(
           :id="block.id",
           :title="block.title",

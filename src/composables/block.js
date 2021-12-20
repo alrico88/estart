@@ -3,9 +3,9 @@ import { computed } from "@vue/composition-api";
 export function useBlockUI(ui) {
   const cardStyle = computed(() => {
     {
-      const { shadowed, bordered } = ui.value;
+      const { shadowed, bordered, alignment } = ui.value;
 
-      const classes = [];
+      const classes = [`text-${alignment}`];
 
       if (shadowed) {
         classes.push("shadow");

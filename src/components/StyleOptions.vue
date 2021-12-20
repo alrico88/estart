@@ -1,56 +1,58 @@
 <template lang="pug">
-b-modal(
-  ref="modal",
+b-sidebar(
+  id="styleSidebar",
   title="Style options",
-  header-border-variant="dark",
-  footer-border-variant="dark",
-  :ok-only="true",
-  ok-variant="dark",
-  ok-title="Close",
+  bg-variant="dark",
+  text-variant="light",
+  right
 )
-  b-form
-    b-form-group(label="Items to show")
-      b-form-checkbox(v-model="clock") Clock
-      b-form-checkbox(v-model="search") Search
-    b-form-group(label="Appearance")
-      b-form-checkbox(v-model="bordered") Bordered
-      b-form-checkbox(v-model="shadowed") Shadowed
-      b-form-checkbox(v-model="favicon") Favicons
-    b-form-group(label="Background")
-      .text-small
-        b-form-group.mb-1(label="Solid color")
-          .d-flex.align-items-center
-            b-form-input.color-input(label="Body color", type="color", v-model="bodyColor")
-            div.ml-2(v-if="resetBodyColorEnabled")
-              a.text-white(href="#", @click="resetBackground")
-                b-icon-backspace-fill
-        b-form-group(label="Image background", description="Overrides solid color")
-          b-form-input(type="text", v-model="backgroundImage")
-    b-form-group(label="Custom font family", description="Font must be installed in your system")
-      b-input-group
-        b-form-input(
-          type="text",
-          placeholder="Ex.: Fira Code",
-          v-model="fontFamily"
-        )
-        b-input-group-append(v-if="isCustomFont")
-          b-button(variant="outline-secondary", @click="resetFont") Back to default
-    b-form-group(label="Behaviour")
-      b-form-checkbox(v-model="newTab") Open links in new tab
+  .px-3.py-2
+    b-form.text-left
+      b-form-group(label="Items to show")
+        b-form-checkbox(v-model="clock") Clock
+        b-form-checkbox(v-model="search") Search
+      b-form-group(label="Appearance")
+        b-form-checkbox(v-model="bordered") Bordered
+        b-form-checkbox(v-model="shadowed") Shadowed
+        b-form-checkbox(v-model="favicon") Favicons
+      b-form-group(label="Link alignment")
+        b-form-radio-group(v-model="alignment", :options="alignOpts", buttons, size="sm")
+      b-form-group(label="Background")
+        .text-small
+          b-form-group.mb-1(label="Solid color")
+            .d-flex.align-items-center
+              b-form-input.color-input(label="Body color", type="color", v-model="bodyColor")
+              div.ml-2(v-if="resetBodyColorEnabled")
+                a.text-white(href="#", @click="resetBackground")
+                  b-icon-backspace-fill
+          b-form-group(label="Image background", description="Overrides solid color")
+            b-form-input(type="text", v-model="backgroundImage")
+      b-form-group(label="Custom font family", description="Font must be installed in your system")
+        b-input-group
+          b-form-input(
+            type="text",
+            placeholder="Ex.: Fira Code",
+            v-model="fontFamily"
+          )
+          b-input-group-append(v-if="isCustomFont")
+            b-button(variant="outline-secondary", @click="resetFont") Back to default
+      b-form-group(label="Behaviour")
+        b-form-checkbox(v-model="newTab") Open links in new tab
 </template>
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
 import {
   BButton,
-  BModal,
+  BSidebar,
   BFormGroup,
   BFormCheckbox,
   BForm,
   BFormInput,
   BIconBackspaceFill,
   BInputGroup,
-  BInputGroupAppend
+  BInputGroupAppend,
+  BFormRadioGroup
 } from "bootstrap-vue";
 import { genUIComputed } from "@/helpers/computed";
 
@@ -58,14 +60,33 @@ export default {
   name: "StyleOptions",
   components: {
     BButton,
-    BModal,
+    BSidebar,
     BForm,
     BFormGroup,
     BFormCheckbox,
     BInputGroup,
     BInputGroupAppend,
     BFormInput,
-    BIconBackspaceFill
+    BIconBackspaceFill,
+    BFormRadioGroup
+  },
+  data() {
+    return {
+      alignOpts: [
+        {
+          text: "Left",
+          value: "left"
+        },
+        {
+          text: "Center",
+          value: "center"
+        },
+        {
+          text: "Right",
+          value: "right"
+        }
+      ]
+    };
   },
   computed: {
     ...mapState(["ui"]),
@@ -80,6 +101,7 @@ export default {
     cardColor: genUIComputed("cardColor"),
     fontFamily: genUIComputed("fontFamily"),
     backgroundImage: genUIComputed("backgroundImage"),
+    alignment: genUIComputed("alignment"),
     resetBodyColorEnabled() {
       return this.bodyColor !== "#212121";
     }
@@ -88,12 +110,6 @@ export default {
     ...mapActions(["updateUI"]),
     changeUI(element, value) {
       this.updateUI({ element, value });
-    },
-    openModal() {
-      this.$refs.modal.show();
-    },
-    closeModal() {
-      this.$refs.modal.hide();
     },
     resetBackground() {
       this.bodyColor = "#212121";

@@ -5,7 +5,7 @@
     a(href="#", v-show="!editing", @click.prevent="toggleEditing") Edit
   li.list-inline-item.cursor-default -
   li.list-inline-item
-    a(href="#", @click.prevent="openStyleModal") Style
+    a(href="#", v-b-toggle.styleSidebar) Style
   li.list-inline-item.cursor-default -
   li.list-inline-item
     a(href="#", @click.prevent="openImportExportModal") Import / export
@@ -16,7 +16,7 @@ import { useActions, useState } from "vuex-composition-helpers";
 
 export default {
   name: "OptionsToggler",
-  emit: ["open-ie-modal", "open-style-modal"],
+  emit: ["open-ie-modal"],
   setup(_, { emit }) {
     const { editing } = useState(["editing"]);
     const { toggleEditing } = useActions(["toggleEditing"]);
@@ -25,15 +25,10 @@ export default {
       emit("open-ie-modal");
     }
 
-    function openStyleModal() {
-      emit("open-style-modal");
-    }
-
     return {
       editing,
       toggleEditing,
-      openImportExportModal,
-      openStyleModal
+      openImportExportModal
     };
   }
 };

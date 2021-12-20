@@ -25,7 +25,8 @@ export default new Vuex.Store({
       openInNewTab: true,
       bodyColor: "#212121",
       fontFamily: "",
-      backgroundImage: ""
+      backgroundImage: "",
+      alignment: "center"
     }
   },
   getters: {

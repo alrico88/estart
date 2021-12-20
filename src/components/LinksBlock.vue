@@ -1,6 +1,6 @@
 <template lang="pug">
 .card.h-100(:class="cardStyle")
-  .card-body.text-center
+  .card-body
     p.lead.font-weight-bold.mt-1(
       :style="titleStyle", 
       :contenteditable="editing", 

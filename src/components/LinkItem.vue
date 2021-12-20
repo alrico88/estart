@@ -3,7 +3,7 @@ li(:class="linkClass")
   .d-flex.align-items-center
     .flex-grow-1.truncate-parent
       .truncate
-        a.align-middle(
+        b-link(
           :href="url",
           :style="style",
           @mouseenter="isHovered = true",
@@ -20,6 +20,7 @@ li(:class="linkClass")
 
 <script>
 import {
+  BLink,
   BIconDashSquare,
   BIconArrowUpCircle,
   BIconArrowDownCircle
@@ -60,6 +61,7 @@ export default {
     }
   },
   components: {
+    BLink,
     BIconDashSquare,
     BIconArrowUpCircle,
     BIconArrowDownCircle,

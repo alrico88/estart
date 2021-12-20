@@ -12,8 +12,8 @@
         .row
           .col
             blocks-area
-    options-toggler(@open-ie-modal="openImportModal", @open-style-modal="openStyleModal")
-    style-options(ref="styleModal")
+    options-toggler(@open-ie-modal="openImportModal")
+    style-options
     import-export(ref="importExportModal")
     b-toast#update-toast(variant="warning", title="Update available", no-auto-hide)
       p A new version is available, please refresh
@@ -77,9 +77,6 @@ export default {
   methods: {
     openImportModal() {
       this.$refs.importExportModal.openModal();
-    },
-    openStyleModal() {
-      this.$refs.styleModal.openModal();
     }
   }
 };
