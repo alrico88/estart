@@ -25,7 +25,6 @@ specifiers:
   lodash: ^4.17.20
   mitt: ^3.0.0
   nanoid: ^3.1.20
-  object-hash: ^2.1.1
   prettier: ^1.19.1
   regenerator-runtime: ^0.13.9
   register-service-worker: ^1.7.1
@@ -55,7 +54,6 @@ dependencies:
   lodash: 4.17.21
   mitt: 3.0.0
   nanoid: 3.1.25
-  object-hash: 2.2.0
   register-service-worker: 1.7.2
   sugiero: 1.1.0
   vue: 2.6.14
@@ -6356,11 +6354,6 @@ packages:
     resolution: {integrity: sha512-OSuu/pU4ENM9kmREg0BdNrUDIl1heYa4mBZacJc+vVWz4GtAwu7jO8s4AIt2aGRUTqxykpWzI3Oqnsm13tTMDA==}
     engines: {node: '>= 0.10.0'}
     dev: true
-
-  /object-hash/2.2.0:
-    resolution: {integrity: sha512-gScRMn0bS5fH+IuwyIFgnh9zBdo4DV+6GhygmWM9HyNJSgS0hScp1f5vjtm7oIIOiT9trXrShAkLFSc2IqKNgw==}
-    engines: {node: '>= 6'}
-    dev: false
 
   /object-inspect/1.11.0:
     resolution: {integrity: sha512-jp7ikS6Sd3GxQfZJPyH3cjcbJF6GZPClgdV+EFygjFLQ5FmW/dRUnTd9PQ9k0JhoNDabWFbpF1yCdSWCC6gexg==}
