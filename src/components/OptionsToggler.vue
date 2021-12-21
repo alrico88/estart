@@ -3,10 +3,10 @@
   li.list-inline-item
     a.text-success(href="#", v-show="editing", @click.prevent="toggleEditing") Done editing
     a(href="#", v-show="!editing", @click.prevent="toggleEditing") Edit
-  li.list-inline-item.cursor-default -
+  li.list-inline-item -
   li.list-inline-item
-    a(href="#", v-b-toggle.styleSidebar) Style
-  li.list-inline-item.cursor-default -
+    a(href="#", v-b-toggle.styleSidebar @click.prevent) Style
+  li.list-inline-item -
   li.list-inline-item
     a(href="#", @click.prevent="openImportExportModal") Import / export
 </template>
@@ -42,13 +42,10 @@ export default {
   a,
   li {
     color: #4c4c4c;
-    &:hover {
-      color: white;
-    }
   }
-}
 
-.cursor-default:hover {
-  cursor: default;
+  a:hover {
+    color: white;
+  }
 }
 </style>
