@@ -26,7 +26,7 @@ import {
   BIconArrowDownCircle
 } from "bootstrap-vue";
 import LinkFavicon from "./LinkFavicon.vue";
-import { useState, useActions } from "vuex-composition-helpers";
+import { useState, useActions, useGetters } from "vuex-composition-helpers";
 import { ref, computed, toRefs } from "@vue/composition-api";
 
 export default {
@@ -72,13 +72,14 @@ export default {
 
     const { deleteLink, moveLink } = useActions(["deleteLink", "moveLink"]);
     const { editing, ui } = useState(["editing", "ui"]);
+    const { elementsFontColor } = useGetters(["elementsFontColor"]);
 
     const isHovered = ref(false);
 
     const showFavicons = computed(() => ui.value.favicon);
     const style = computed(() => {
       return {
-        color: isHovered.value ? color.value : "#9e9e9e"
+        color: isHovered.value ? color.value : elementsFontColor.value
       };
     });
     const linkClass = computed(() => {

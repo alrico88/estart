@@ -1,5 +1,5 @@
 <template lang="pug">
-.card.h-100(:class="cardStyle")
+.card.h-100(:class="cardClasses", :style="cardStyle")
   .card-body
     p.lead.font-weight-bold.mt-1(
       :style="titleStyle", 
@@ -26,7 +26,7 @@
 import LinkItem from "./LinkItem.vue";
 import LinksBlockEditingArea from "@/components/LinksBlockEditingArea.vue";
 import { computed } from "@vue/composition-api";
-import { useActions, useState } from "vuex-composition-helpers";
+import { useActions, useGetters, useState } from "vuex-composition-helpers";
 import { useBlockUI } from "../composables/block";
 
 export default {
@@ -55,9 +55,10 @@ export default {
   },
   setup(props) {
     const { ui, editing } = useState(["ui", "editing"]);
+    const { cardStyle } = useGetters(["cardStyle"]);
     const { changeBlockTitle } = useActions(["changeBlockTitle"]);
 
-    const { cardStyle } = useBlockUI(ui);
+    const { cardClasses } = useBlockUI(ui);
 
     const titleStyle = computed(() => {
       return {
@@ -73,6 +74,7 @@ export default {
     }
 
     return {
+      cardClasses,
       cardStyle,
       changeTitle,
       titleStyle,
@@ -84,7 +86,6 @@ export default {
 
 <style lang="scss" scoped>
 .card {
-  background-color: #2e2e2e;
   border-radius: 6px;
 
   .card-body {

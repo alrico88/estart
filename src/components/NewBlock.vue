@@ -1,5 +1,5 @@
 <template lang="pug">
-.card.h-100(:class="cardStyle")
+.card.h-100(:class="cardClasses", :style="cardStyle")
   .card-body.text-center(v-if="ready")
     b-form(v-if="ready", @submit.prevent="createBlock")
       b-form-group(label="Block title")
@@ -24,7 +24,7 @@ import {
 } from "bootstrap-vue";
 import { Block } from "@/helpers/classes";
 import { ref, reactive, computed } from "@vue/composition-api";
-import { useActions, useState } from "vuex-composition-helpers";
+import { useActions, useGetters, useState } from "vuex-composition-helpers";
 import is from "@sindresorhus/is";
 import { useBlockUI } from "../composables/block";
 
@@ -40,8 +40,9 @@ export default {
   setup() {
     const { addBlock } = useActions(["addBlock"]);
     const { ui } = useState(["ui"]);
+    const { cardStyle } = useGetters(["cardStyle"]);
 
-    const { cardStyle } = useBlockUI(ui);
+    const { cardClasses } = useBlockUI(ui);
 
     const block = reactive({
       title: "",
@@ -76,6 +77,7 @@ export default {
       getReady,
       createBlock,
       cantSubmit,
+      cardClasses,
       cardStyle
     };
   }

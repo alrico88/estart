@@ -27,6 +27,16 @@ b-sidebar(
                   b-icon-backspace-fill
           b-form-group(label="Image background", description="Overrides solid color")
             b-form-input(type="text", v-model="backgroundImage")
+      b-form-group(label="Elements")
+        .text-small
+          b-form-group.mb-1(label="Elements color")
+            .d-flex.align-items-center
+              b-form-input.color-input(label="Elements background color", type="color", v-model="cardColor")
+              div.ml-2(v-if="resetCardColorEnabled")
+                a.text-white(href="#", @click="resetCard")
+                  b-icon-backspace-fill
+          b-form-group.mb-1(label="Opacity")
+            b-form-input(type="range", :min="0", :max="100", v-model.number="cardOpacity")
       b-form-group(label="Custom font family", description="Font must be installed in your system")
         b-input-group
           b-form-input(
@@ -99,11 +109,15 @@ export default {
     newTab: genUIComputed("openInNewTab"),
     bodyColor: genUIComputed("bodyColor"),
     cardColor: genUIComputed("cardColor"),
+    cardOpacity: genUIComputed("cardOpacity"),
     fontFamily: genUIComputed("fontFamily"),
     backgroundImage: genUIComputed("backgroundImage"),
     alignment: genUIComputed("alignment"),
     resetBodyColorEnabled() {
       return this.bodyColor !== "#212121";
+    },
+    resetCardColorEnabled() {
+      return this.cardColor !== "#2e2e2e";
     }
   },
   methods: {
@@ -113,6 +127,9 @@ export default {
     },
     resetBackground() {
       this.bodyColor = "#212121";
+    },
+    resetCard() {
+      this.cardColor = "#2e2e2e";
     },
     resetFont() {
       this.fontFamily = "";

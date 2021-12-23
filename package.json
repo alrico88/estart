@@ -16,6 +16,7 @@
     "axios": "^0.24.0",
     "bootstrap": "^4.6.1",
     "bootstrap-vue": "^2.21.2",
+    "chroma-js": "^2.1.2",
     "core-js": "^3.6.5",
     "cryptorjs": "^3.0.0",
     "dayjs": "^1.10.7",

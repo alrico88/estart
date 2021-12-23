@@ -15,7 +15,8 @@
               autofocus,
               @focus="captureFocus",
               @blur="releaseFocus",
-              autocomplete="off"
+              autocomplete="off",
+              :style="inputStyle"
             )
           div(v-if="editing")
             b-form-select(size="lg", :options="providers", v-model="selectedProvider")
@@ -30,7 +31,7 @@
 
 <script>
 import { BForm, BFormGroup, BFormInput, BFormSelect } from "bootstrap-vue";
-import { useState } from "vuex-composition-helpers";
+import { useGetters, useState } from "vuex-composition-helpers";
 import { useFocus } from "../composables/focus";
 import { useHoverer } from "../composables/hoverer";
 import { useSearch } from "../composables/search";
@@ -49,6 +50,10 @@ export default {
   },
   setup() {
     const { editing, ui } = useState(["editing", "ui"]);
+    const { elementsBgColor, elementsFontColor } = useGetters([
+      "elementsBgColor",
+      "elementsFontColor"
+    ]);
 
     const {
       query,
@@ -88,17 +93,24 @@ export default {
     }
 
     const inputClasses = computed(() => {
-      const classes = [];
+      const classes = ["no-border"];
 
       if (ui.value.shadowed) {
         classes.push("shadow");
       }
 
       if (ui.value.bordered) {
-        classes.push("border-secondary");
+        classes.push("border border-secondary");
       }
 
       return classes;
+    });
+
+    const inputStyle = computed(() => {
+      return {
+        backgroundColor: elementsBgColor.value,
+        color: elementsFontColor.value
+      };
     });
 
     return {
@@ -115,8 +127,15 @@ export default {
       hovered,
       loading,
       suggestions,
-      inputClasses
+      inputClasses,
+      inputStyle
     };
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.no-border {
+  border-color: transparent;
+}
+</style>

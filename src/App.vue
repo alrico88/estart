@@ -59,7 +59,6 @@ export default {
 
       return {
         "--body-color": background,
-        "--card-color": ui.cardColor,
         "--font-family": this.isCustomFont ? ui.fontFamily : "Jetbrains Mono"
       };
     }

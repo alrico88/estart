@@ -1,7 +1,7 @@
 import { computed } from "@vue/composition-api";
 
 export function useBlockUI(ui) {
-  const cardStyle = computed(() => {
+  const cardClasses = computed(() => {
     {
       const { shadowed, bordered, alignment } = ui.value;
 
@@ -20,6 +20,6 @@ export function useBlockUI(ui) {
   });
 
   return {
-    cardStyle
+    cardClasses
   };
 }
