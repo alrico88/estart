@@ -1,0 +1,28 @@
+$darkColor: #212121;
+$lessDarkColor: #2e2e2e;
+
+// Define variable defaults
+$font-family-sans-serif: 'Source Sans Pro', sans-serif;
+
+body, html {
+  font-size: 16px;
+}
+
+// Then import Bootstrap an BootstrapVue SCSS files (order is important)
+@import 'node_modules/bootstrap/scss/bootstrap';
+
+.overflow-y {
+  overflow-y: auto;
+}
+
+.text-small {
+  font-size: 0.8rem;
+}
+
+.btn-link {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

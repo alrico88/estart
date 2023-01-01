@@ -1,25 +1,20 @@
 # estart
 
-A simple PWA start page with customizable blocks, links, background and search, built with Vue. Works offline.
+A simple and private PWA start page with customizable blocks, links, background and search, built with Vue 3, Nuxt, Pinia and TypeScript. Works offline.
 
 ## Project setup
 ```
-pnpm install
+pnpm install --shamefully-hoist
 ```
 
 ### Compiles and hot-reloads for development
 ```
-pnpm serve
+pnpm run dev
 ```
 
 ### Compiles and minifies for production
 ```
-pnpm build
-```
-
-### Lints and fixes files
-```
-pnpm lint
+pnpm run build
 ```
 
 ### Customize configuration
