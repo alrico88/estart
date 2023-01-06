@@ -36,7 +36,7 @@
   .row
     .col
       h5 Reset
-      button.btn.btn-link.text-danger.p-0(@click="deleteAllLinks") Delete all blocks
+      confirm-delete(text="Delete all blocks", filled, @delete="deleteAllLinks")
 </template>
 
 <script setup lang="ts">

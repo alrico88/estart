@@ -1,5 +1,5 @@
 <template lang="pug">
-button.btn.btn-outline-danger.text-nowrap(@click="performDelete")
+button.btn.text-nowrap(:class="btnClass", @click="performDelete")
   icon(name="material-symbols:delete-outline")
   |  {{ textShown }}
 </template>
@@ -9,9 +9,11 @@ const props = withDefaults(
   defineProps<{
     text?: string;
     size?: string;
+    filled?: boolean;
   }>(),
   {
     size: "md",
+    filled: false,
   }
 );
 
@@ -28,6 +30,10 @@ function performDelete(): void {
 
   isConfirming.value = !isConfirming.value;
 }
+
+const btnClass = computed(() =>
+  props.filled === true ? "btn-danger" : "btn-outline-danger"
+);
 
 const textShown = computed(() => (isConfirming.value ? "Sure?" : props.text));
 </script>
