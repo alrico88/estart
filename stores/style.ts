@@ -8,6 +8,7 @@ export const useStyleStore = defineStore("styleStore", {
       // UI
       clock: true,
       search: true,
+      weather: false,
       // Links
       openInNewTab: true,
       // Customization

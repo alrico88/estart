@@ -3,9 +3,13 @@
   .row.justify-content-center.h-100
     .my-auto(:class="`col-${colSize}`")
       .vstack.gap-3
-        .row(v-if="styleStore.clock")
-          .col
-            clock
+        .vstack.gap-1
+          .row(v-if="styleStore.clock")
+            .col
+              clock
+          .row(v-if="styleStore.weather")
+            .col
+              weather
         .row(v-if="styleStore.search")
           .col
             search

@@ -9,6 +9,17 @@
         form-group(upper, bolder, label="Items to show")
           form-check(v-model="styleStore.clock", label="Clock")
           form-check(v-model="styleStore.search", label="Search")
+          form-check(v-model="styleStore.weather", label="Weather")
+        template(v-if="styleStore.weather")
+          hr.my-1
+          form-group(upper, bolder, label="Weather")
+            .text-small
+              settings-weather(
+                v-model:latitude="weatherStore.coordinates.latitude",
+                v-model:longitude="weatherStore.coordinates.longitude",
+                v-model:place-tag="weatherStore.placeTag",
+                v-model:temperature-unit="weatherStore.temperatureUnit"
+              )
         hr.my-1
         form-group(upper, bolder, label="Appearance")
           form-check(v-model="styleStore.bordered", label="Bordered")
@@ -23,7 +34,7 @@
                 :current-value="styleStore.bodyColor",
                 @reset="(val) => {styleStore.bodyColor = val}"
               )
-                c-form-input.w-100(label="Body color", type="color", v-model="styleStore.bodyColor")
+                c-form-input.w-100(type="color", v-model="styleStore.bodyColor")
             form-group(label="Image background", description="Overrides solid color")
               c-form-input(type="text", v-model="styleStore.backgroundImage")
         form-group(upper, bolder, label="Cards")
@@ -34,7 +45,7 @@
                 :current-value="styleStore.cardColor",
                 @reset="(val) => {styleStore.cardColor = val}"
               )
-                c-form-input.w-100(label="Cards background color", type="color", v-model="styleStore.cardColor")
+                c-form-input.w-100(type="color", v-model="styleStore.cardColor")
             form-group.mb-1(label="Opacity")
               input.form-range(
                 type="range",
@@ -58,7 +69,7 @@
                 :current-value="styleStore.textColor",
                 @reset="(val) => styleStore.textColor = val"
               )
-                c-form-input.w-100(label="Link Color", type="color", v-model="styleStore.textColor")
+                c-form-input.w-100(type="color", v-model="styleStore.textColor")
             form-group(upper, bolder, label="Custom font family", description="Font must be installed in your system")
               form-reset(
                 original-value="Source Sans Pro",
@@ -95,8 +106,10 @@
 import { CFormInput } from "@coreui/bootstrap-vue";
 import { useStyleStore } from "~~/stores/style";
 import { useLinksStore } from "~~/stores/links";
+import { useWeatherStore } from "~~/stores/weather";
 
 const linksStore = useLinksStore();
+const weatherStore = useWeatherStore();
 
 useHead({
   title: "Style settings - estart",
