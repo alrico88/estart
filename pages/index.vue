@@ -1,5 +1,5 @@
 <template lang="pug">
-.container.pb-3.flex-grow-1
+.container-md.pb-3.flex-grow-1
   .row.justify-content-center.h-100
     .my-auto(:class="`col-${colSize}`")
       .vstack.gap-3

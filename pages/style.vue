@@ -1,10 +1,10 @@
 <template lang="pug">
-.container
+.container-md
   .row.pb-3
     .col
       h4.fw-bolder.mb-0 Style settings
   .row
-    .col-3.pb-3
+    .col-md-3.col-6.pb-3
       .vstack.gap-2.bg-dark.p-3.rounded
         form-group(upper, bolder, label="Items to show")
           form-check(v-model="styleStore.clock", label="Clock")
@@ -82,7 +82,7 @@
           template(v-if="linksStore.data.length > 0")
             blocks-area
           template(v-else)
-            .row.row-cols-lg-4.row-cols-2
+            .row.row-cols-lg-4.row-cols-md-2.row-cols-1
               .col
                 links-block(
                   :title="previewBlock.title",

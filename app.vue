@@ -1,8 +1,8 @@
 <template lang="pug">
 #app.full-height.d-flex.flex-column(:style="appStyle")
-  c-navbar(expand="sm", color-scheme="dark")
-    .container-fluid
-      c-navbar-nav.ms-auto
+  c-navbar(:expand="true", color-scheme="dark")
+    .container-fluid.justify-content-md-end.justify-content-center
+      c-navbar-nav
         c-nav-item
           nuxt-link.nav-link(to="/", exact-active-class="active") #[icon(name="icon-park-twotone:block-seven")] Home
         c-nav-item
