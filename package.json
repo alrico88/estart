@@ -7,6 +7,10 @@
     "dev": "nuxi dev",
     "start": "node .output/server/index.mjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alrico88/estart"
+  },
   "dependencies": {
     "@coreui/bootstrap-vue": "1.0.0-beta.0",
     "@fontsource/source-sans-pro": "^4.5.11",
