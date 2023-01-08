@@ -37,4 +37,7 @@ export default defineNuxtConfig({
       theme_color: "#212121",
     },
   },
+  piniaPersistedstate: {
+    storage: "localStorage",
+  },
 });
