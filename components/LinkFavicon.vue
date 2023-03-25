@@ -17,8 +17,7 @@ const faviconSrc = computed(() => {
   let favicon;
 
   try {
-    const asURL = new URL(props.link);
-    favicon = `https://icons.duckduckgo.com/ip3/${asURL.hostname}.ico`;
+    favicon = `https://favi.vercel.app/image?url=${props.link}`;
   } catch (e) {
     favicon = null;
   }
