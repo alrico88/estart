@@ -20,6 +20,7 @@ export const useStyleStore = defineStore("styleStore", {
       textColor: "#fafafa",
       fontFamily: "Source Sans Pro",
       alignment: "center",
+      masonry: false,
     };
   },
   persist: {
