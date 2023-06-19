@@ -26,6 +26,7 @@
           form-check(v-model="styleStore.shadowed", label="Shadowed")
           form-check(v-model="styleStore.favicon", label="Favicons") 
           form-check(v-model="styleStore.compact", label="Compact container")
+          form-check(v-model="styleStore.masonry", label="Masonry layout")
         form-group(upper, bolder, label="Background")
           .text-small
             form-group.mb-1(label="Solid color")
