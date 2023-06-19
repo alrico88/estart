@@ -213,7 +213,4 @@ export function mapIcon(
   return "wi:day-sunny";
 }
 
-export enum TemperatureUnit {
-  Celsius = "celsius",
-  Fahrenheit = "fahrenheit",
-}
+export type TemperatureUnit = "celsius" | "fahrenheit";

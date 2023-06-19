@@ -102,11 +102,13 @@
                 )
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { CFormInput } from "@coreui/bootstrap-vue";
 import { useStyleStore } from "~~/stores/style";
 import { useLinksStore } from "~~/stores/links";
 import { useWeatherStore } from "~~/stores/weather";
+import type { Block } from "~/models/Block";
+import { nanoid } from "nanoid";
 
 const linksStore = useLinksStore();
 const weatherStore = useWeatherStore();
@@ -131,4 +133,17 @@ const alignOptions = [
     value: "end",
   },
 ];
+
+const previewBlock: Block = {
+  id: nanoid(),
+  title: "My sites",
+  color: "#A2D243",
+  links: [
+    {
+      id: nanoid(),
+      name: "Alberto Rico",
+      url: "https://alrico.es",
+    },
+  ],
+};
 </script>

@@ -21,19 +21,19 @@
     .col
       form-group(label="Units")
         select.form-control(v-model="temperatureUnit")
-          option(:value="TemperatureUnit.Celsius") {{ capitalize(TemperatureUnit.Celsius) }}
-          option(:value="TemperatureUnit.Fahrenheit") {{ capitalize(TemperatureUnit.Fahrenheit) }}
+          option(value="celsius") Celsius
+          option(value="fahrenheit") Fahrenheit
 </template>
 
 <script setup lang="ts">
 import { CFormInput } from "@coreui/bootstrap-vue";
-import { capitalize } from "lodash-es";
+import type { TemperatureUnit } from "~/utils/weather-conditions";
 
 const props = defineProps<{
   latitude: string;
   longitude: string;
   placeTag: string;
-  temperatureUnit: typeof TemperatureUnit;
+  temperatureUnit: TemperatureUnit;
 }>();
 
 const { latitude, longitude, placeTag, temperatureUnit } = useVModels(props);

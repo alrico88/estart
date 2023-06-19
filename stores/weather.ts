@@ -1,3 +1,5 @@
+import type { TemperatureUnit } from "~/utils/weather-conditions";
+
 export const useWeatherStore = defineStore(
   "weatherStore",
   () => {
@@ -14,7 +16,7 @@ export const useWeatherStore = defineStore(
 
     const placeTag = ref("");
 
-    const temperatureUnit = ref<"celsius" | "fahrenheit">("celsius");
+    const temperatureUnit = ref<TemperatureUnit>("celsius");
 
     return {
       coordinates,

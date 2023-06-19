@@ -37,15 +37,13 @@ const searchProvider = useLocalStorage<keyof typeof providers>(
 
 const suggestions = shallowRef<string[]>([]);
 
+const { $client } = useNuxtApp();
+
 async function getSuggestions(search: string): Promise<void> {
   try {
     setLoading(true);
 
-    const data = await $fetch<string[]>("/api/suggestions", {
-      query: {
-        search,
-      },
-    });
+    const data = await $client.getSuggestions.query(search);
 
     suggestions.value = [search, ...data];
   } catch (err) {
