@@ -43,13 +43,13 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@kevinmarrec/nuxt-pwa": "^0.16.2",
     "@nuxtjs/fontaine": "^0.2.4",
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/chroma-js": "^2.1.4",
     "@types/file-saver": "^2.0.5",
     "@types/lodash-es": "^4.17.6",
     "@types/qrcode": "^1.5.0",
+    "@vite-pwa/nuxt": "^0.1.0",
     "@volar/vue-language-plugin-pug": "^1.0.24",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.2",

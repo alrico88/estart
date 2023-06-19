@@ -28,16 +28,47 @@ export default defineNuxtConfig({
       },
     ],
     "@pinia-plugin-persistedstate/nuxt",
-    "@kevinmarrec/nuxt-pwa",
+    "@vite-pwa/nuxt",
   ],
   fontMetrics: {
     fonts: ["Source Sans Pro"],
+  },
+  nitro: {
+    prerender: {
+      routes: ["/", "/edit", "/backup", "/style"],
+    },
   },
   pwa: {
     manifest: {
       name: "estart",
       description: "Simple and private start page",
       theme_color: "#212121",
+      icons: [
+        {
+          src: "pwa-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+        {
+          src: "pwa-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "any maskable",
+        },
+      ],
+    },
+    client: {
+      installPrompt: true,
+    },
+    workbox: {
+      navigateFallback: "/",
+      globPatterns: ["**/*.{js,css,html,png,svg,ico,woff,woff2}"],
+      cleanupOutdatedCaches: true,
     },
   },
   piniaPersistedstate: {

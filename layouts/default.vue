@@ -1,0 +1,63 @@
+<template lang="pug">
+#app.full-height.d-flex.flex-column(:style="appStyle")
+  c-navbar(:expand="true", color-scheme="dark")
+    .container-fluid.justify-content-md-end.justify-content-center
+      c-navbar-nav
+        c-nav-item(v-if="$pwa.needRefresh")
+          c-button(
+            color="primary", 
+            @click="$pwa.updateServiceWorker()"
+          ) #[icon(name="bi:repeat")] Update available
+        c-nav-item
+          nuxt-link.nav-link(to="/", exact-active-class="active") #[icon(name="icon-park-twotone:block-seven")] Home
+        c-nav-item
+          nuxt-link.nav-link(to="/edit", exact-active-class="active") #[icon(name="material-symbols:edit-road")] Edit
+        c-nav-item
+          nuxt-link.nav-link(to="/backup", exact-active-class="active") #[icon(name="ic:baseline-settings-backup-restore")] Backup
+        c-nav-item
+          nuxt-link.nav-link(to="/style", exact-active-class="active") #[icon(name="material-symbols:style-outline")] Style
+  slot
+</template>
+
+<script setup lang="ts">
+import { useStyleStore } from "../stores/style";
+import { CNavbar, CNavbarNav, CNavItem, CButton } from "@coreui/bootstrap-vue";
+
+const styleStore = useStyleStore();
+const { backgroundImage, bodyColor, fontFamily } = storeToRefs(styleStore);
+
+const appStyle = computed(() => {
+  const background =
+    backgroundImage.value !== ""
+      ? `url('${backgroundImage.value}')`
+      : bodyColor.value;
+
+  return {
+    "--body-color": background,
+    "--font-family": fontFamily.value,
+  };
+});
+
+const { $pwa } = useNuxtApp();
+
+watch(
+  () => $pwa.offlineReady,
+  () => {
+    console.log("ready to work offline");
+  }
+);
+</script>
+
+<style lang="scss">
+#app {
+  background: var(--body-color);
+  font-family: var(--font-family);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.full-height {
+  height: 100vh;
+  overflow-y: auto;
+}
+</style>
