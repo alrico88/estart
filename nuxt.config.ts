@@ -33,6 +33,11 @@ export default defineNuxtConfig({
   fontMetrics: {
     fonts: ["Source Sans Pro"],
   },
+  nitro: {
+    prerender: {
+      routes: ["/", "/edit", "/backup", "/style"],
+    },
+  },
   pwa: {
     manifest: {
       name: "estart",
