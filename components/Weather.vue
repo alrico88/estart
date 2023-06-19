@@ -21,16 +21,16 @@ const loading = ref(false);
 const temperature = ref<number | null>(null);
 const conditionIcon = ref<string | null>(null);
 
+const { $client } = useNuxtApp();
+
 const { resume, pause } = useTimeoutPoll(async () => {
   try {
     loading.value = true;
 
-    const weatherData = await $fetch("/api/weather", {
-      query: {
-        latitude: coordinates.value.latitude,
-        longitude: coordinates.value.longitude,
-        temperature_unit: temperatureUnit.value,
-      },
+    const weatherData = await $client.getWeather.query({
+      latitude: coordinates.value.latitude,
+      longitude: coordinates.value.longitude,
+      temperature_unit: temperatureUnit.value,
     });
 
     temperature.value = Math.floor(weatherData.current_weather.temperature);

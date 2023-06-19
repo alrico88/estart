@@ -31,17 +31,14 @@ const showSaved = computed(
   () => !hasError.value && is.nonEmptyString(saved.value)
 );
 
+const { $client } = useNuxtApp();
+
 async function saveToRemote() {
   try {
     hasError.value = false;
     loading.value = true;
 
-    const response = await $fetch("/api/store", {
-      method: "POST",
-      body: {
-        data: props.data,
-      },
-    });
+    const response = await $client.postToStore.mutate(props.data);
 
     saved.value = `${location.origin}${route.path}?id=${response.data}`;
 

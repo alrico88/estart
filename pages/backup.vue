@@ -43,7 +43,9 @@ import { Formatter } from "fracturedjsonjs";
 import { saveAs } from "file-saver";
 import dayjs from "dayjs";
 import { readAsText } from "promise-file-reader";
-import is from '@sindresorhus/is';
+import is from "@sindresorhus/is";
+
+const { $client } = useNuxtApp();
 
 useHead({
   title: "Backup and restore - estart",
@@ -104,11 +106,7 @@ const route = useRoute();
 async function loadToImport() {
   if (is.nonEmptyString(route.query.id)) {
     try {
-      const response = await $fetch("/api/store", {
-        query: {
-          id: route.query.id,
-        },
-      });
+      const response = await $client.getFromStore.query(route.query.id);
 
       if (response.success) {
         dataToImport.value = response.data as string;
