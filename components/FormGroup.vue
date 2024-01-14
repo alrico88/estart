@@ -19,10 +19,8 @@ const props = withDefaults(
   }
 );
 
-const labelClasses = computed(() => {
-  return {
-    "fw-bolder": props.bolder,
-    "text-uppercase": props.upper,
-  };
-});
+const labelClasses = computed(() => ({
+  "fw-bolder": props.bolder,
+  "text-uppercase": props.upper,
+}));
 </script>

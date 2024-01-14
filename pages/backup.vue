@@ -8,33 +8,43 @@
       h5 Export
       .vstack.gap-3
         .text-muted Export your links data to a file to import it in another browser or computer or as backup
-        textarea.form-control(v-model="dataToExport", readonly, :rows="10")
+        b-form-textarea(v-model="dataToExport", readonly, :rows="10")
         .hstack.gap-2
           copy-to-clip(:to-copy="dataToExport")
-          button.btn.btn-success(@click="saveToFile")
+          b-button(variant="success", @click="saveToFile")
             icon(name="bi:download")
-            |  Export to file
+            |
+            | Export to file
         export-remote(:data="dataToExport")
     .col
       h5 Import
       .vstack.gap-3
         .text-muted Restore your saved links. WARNING: Importing will overwrite local data
-        textarea.form-control(
+        b-form-textarea(
           v-model="dataToImport",
-          :rows="10", 
+          :rows="10",
           :placeholder="isOverDropZone ? 'Drop the file' : 'Paste from the clipboard or drag a file over here'",
           ref="dropzoneRef"
         )
         div
-          .alert.alert-success.d-block(v-if="importSuccess") Imported successfully
-          .alert.alert-success.d-block(v-if="remoteSuccess") Got data from remote. Click on "Import data" to apply changes
-          button.btn.btn-success(@click="importData", :disabled="importDisabled")
+          b-alert.d-block(:model-value="importSuccess", variant="success") Imported successfully
+          b-alert.d-block(:model-value="remoteSuccess", variant="success") Got data from remote. Click on "Import data" to apply changes
+          b-button(
+            variant="success",
+            @click="importData",
+            :disabled="importDisabled"
+          )
             icon(name="bi:upload")
-            |  Import data
+            |
+            | Import data
   .row
     .col
       h5 Reset
-      confirm-delete(text="Delete all blocks", filled, @delete="deleteAllLinks")
+      confirm-delete(
+        text="Delete all blocks",
+        filled,
+        @delete="deleteAllLinks"
+      )
 </template>
 
 <script setup lang="ts">
@@ -47,7 +57,7 @@ import is from "@sindresorhus/is";
 
 const { $client } = useNuxtApp();
 
-useHead({
+useSeoMeta({
   title: "Backup and restore - estart",
 });
 
@@ -55,11 +65,9 @@ const linksStore = useLinksStore();
 
 // Export
 
-const dataToExport = computed(() => {
-  return new Formatter().Serialize(linksStore.data) as string;
-});
-
-const { copied, copy } = useClipboard();
+const dataToExport = computed(
+  () => new Formatter().Serialize(linksStore.data) as string
+);
 
 function saveToFile() {
   saveAs(

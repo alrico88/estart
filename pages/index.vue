@@ -21,14 +21,10 @@
 <script setup lang="ts">
 import { useStyleStore } from "~~/stores/style";
 
-useHead({
+useSeoMeta({
   title: "estart",
-  meta: [
-    {
-      name: "description",
-      content: "Your customizable private start page",
-    },
-  ],
+  description: "Your customizable private start page",
+  keywords: "start page,customizable,private,offline,bookmarks",
 });
 
 const styleStore = useStyleStore();

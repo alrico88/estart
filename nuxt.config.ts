@@ -10,16 +10,20 @@ export default defineNuxtConfig({
         { charset: "utf-8" },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { name: "theme-color", content: "#212121" },
+        { name: "author", content: "Alberto Rico" },
+        {
+          name: "google-site-verification",
+          content: "nc0pKffQdhm679g_eXEQhjK-NzBM8ZbyFQLR9ZMeJtc",
+        },
       ],
       htmlAttrs: {
         "data-bs-theme": "dark",
       },
     },
   },
-  css: ["@/assets/main.scss", "@fontsource/source-sans-pro/index.css"],
+  css: ["@/assets/main.scss"],
   modules: [
     "nuxt-icon",
-    "@nuxtjs/fontaine",
     "@vueuse/nuxt",
     [
       "@pinia/nuxt",
@@ -29,9 +33,12 @@ export default defineNuxtConfig({
     ],
     "@pinia-plugin-persistedstate/nuxt",
     "@vite-pwa/nuxt",
+    "@bootstrap-vue-next/nuxt",
+    "@nuxtjs/google-fonts",
+    "@nuxtjs/fontaine",
   ],
   fontMetrics: {
-    fonts: ["Source Sans Pro"],
+    fonts: ["Noto Sans"],
   },
   nitro: {
     prerender: {
@@ -78,5 +85,10 @@ export default defineNuxtConfig({
     redisUrl: "",
     redisPass: "",
     encryptPass: "",
+  },
+  googleFonts: {
+    families: {
+      "Noto+Sans": [400, 600, 700, 800],
+    },
   },
 });

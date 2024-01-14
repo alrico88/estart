@@ -3,7 +3,7 @@
   button.btn(
     v-for="option of options",
     :key="option.value",
-    :class="{[`btn-${variant}`]: true, [`btn-${size}`]: true, active: modelValue === option.value}",
+    :class="{ [`btn-${variant}`]: true, [`btn-${size}`]: true, active: modelValue === option.value }",
     @click="select(option.value)"
   ) {{ option.label }}
 </template>

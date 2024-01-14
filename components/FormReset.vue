@@ -2,7 +2,12 @@
 .hstack.gap-2.align-items-center
   slot
   div(v-if="resetEnabled")
-    button.btn.btn-secondary.btn-sm(@click="emit('reset', originalValue)", title="Reset default value")
+    b-button(
+      variant="secondary",
+      size="sm",
+      @click="emit('reset', originalValue)",
+      title="Reset default value"
+    )
       icon(name="bi:backspace-fill")
 </template>
 

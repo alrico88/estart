@@ -1,18 +1,34 @@
 <template lang="pug">
-button.btn.text-nowrap(:class="btnClass", @click="performDelete")
-  icon(name="material-symbols:delete-outline")
-  |  {{ textShown }}
+.hstack.gap-2
+  b-button.text-nowrap(
+    :variant="btnClass",
+    :size="size",
+    @click="performDelete"
+  )
+    icon(name="material-symbols:delete-outline")
+    |
+    | {{ textShown }}
+  b-button.text-nowrap(
+    v-if="isConfirming",
+    variant="secondary",
+    :size="size",
+    @click="isConfirming = false"
+  ) No
 </template>
 
 <script setup lang="ts">
+import type {
+  BaseButtonVariant,
+  BaseSize,
+} from "bootstrap-vue-next/dist/src/types";
+
 const props = withDefaults(
   defineProps<{
     text?: string;
-    size?: string;
+    size?: keyof BaseSize;
     filled?: boolean;
   }>(),
   {
-    size: "md",
     filled: false,
   }
 );
@@ -31,9 +47,13 @@ function performDelete(): void {
   isConfirming.value = !isConfirming.value;
 }
 
-const btnClass = computed(() =>
-  props.filled === true ? "btn-danger" : "btn-outline-danger"
-);
+const btnClass = computed<keyof BaseButtonVariant>(() => {
+  if (isConfirming.value) {
+    return "danger";
+  } else {
+    return props.filled === true ? "danger" : "outline-danger";
+  }
+});
 
 const textShown = computed(() => (isConfirming.value ? "Sure?" : props.text));
 </script>

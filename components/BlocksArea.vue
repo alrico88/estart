@@ -2,8 +2,13 @@
 .row
   .col
     template(v-if="styleStore.masonry")
-      masonry-wall(:items="linksStore.data", :ssr-columns="2", :column-width="300" :gap="16")
-        template(#default="{item: block}")
+      masonry-wall(
+        :items="linksStore.data",
+        :ssr-columns="2",
+        :column-width="300",
+        :gap="16"
+      )
+        template(#default="{ item: block }")
           links-block(
             :id="block.id",
             :title="block.title",
@@ -11,7 +16,7 @@
             :color="block.color"
           )
     template(v-else)
-      .row.row-cols-1.row-cols-sm-2.row-cols-lg-4.justify-content-center.g-2
+      .row.row-cols-1.row-cols-sm-2.row-cols-lg-4.justify-content-center.g-3
         .col(v-for="block of linksStore.data", :key="block.id")
           links-block(
             :id="block.id",

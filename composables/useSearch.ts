@@ -11,9 +11,9 @@ export function useSearch() {
 
   const providers = [Providers.google, Providers.duckduckgo, Providers.bing];
   const selectedProvider = ref<Providers>(Providers.google);
-  const placeholder = computed(() => {
-    return `Search using ${capitalize(selectedProvider.value)}`;
-  });
+  const placeholder = computed(
+    () => `Search using ${capitalize(selectedProvider.value)}`
+  );
 
   const searchUrl = computed(() => {
     const urls = {

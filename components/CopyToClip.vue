@@ -1,7 +1,8 @@
 <template lang="pug">
-button.btn.btn-primary(@click="() => copy(toCopy)", :disabled="copied")
+b-button(variant="primary", @click="() => copy(toCopy)", :disabled="copied")
   icon(name="bi:clipboard") 
-  |  {{ copied ? 'Copied' : 'Copy' }} to clipboard
+  |
+  | {{ copied ? "Copied" : "Copy" }} to clipboard
 </template>
 
 <script setup lang="ts">

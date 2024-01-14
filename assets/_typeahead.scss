@@ -1,0 +1,45 @@
+@import 'vars';
+
+.simple-typeahead {
+  position: relative;
+  width: 100%;
+  > input {
+    margin-bottom: 0;
+  }
+  .simple-typeahead-list {
+    position: absolute;
+    width: 100%;
+    border: none;
+    max-height: 400px;
+    overflow-y: auto;
+    border-bottom: 0.1rem solid $lessDarkColor;
+    z-index: 9;
+    .simple-typeahead-list-header {
+      background-color: $darkColor;
+      padding: 0.6rem 1rem;
+      border-bottom: 0.1rem solid $lessDarkColor;
+      border-left: 0.1rem solid $lessDarkColor;
+      border-right: 0.1rem solid $lessDarkColor;
+    }
+    .simple-typeahead-list-footer {
+      background-color: $darkColor;
+      padding: 0.6rem 1rem;
+      border-left: 0.1rem solid $lessDarkColor;
+      border-right: 0.1rem solid $lessDarkColor;
+    }
+    .simple-typeahead-list-item {
+      cursor: pointer;
+      background-color: $darkColor;
+      padding: 0.6rem 1rem;
+      border-bottom: 0.1rem solid $lessDarkColor;
+      border-left: 0.1rem solid $lessDarkColor;
+      border-right: 0.1rem solid $lessDarkColor;
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+    .simple-typeahead-list-item.simple-typeahead-list-item-active {
+      background-color: $lessDarkColor;
+    }
+  }
+}

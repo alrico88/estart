@@ -1,15 +1,13 @@
-$darkColor: #212121;
-$lessDarkColor: #2e2e2e;
+@import "vars";
+@import "typeahead";
 
-// Define variable defaults
-$font-family-sans-serif: 'Source Sans Pro', sans-serif;
-
-body, html {
+body,
+html {
   font-size: 16px;
 }
 
 // Then import Bootstrap an BootstrapVue SCSS files (order is important)
-@import 'node_modules/bootstrap/scss/bootstrap';
+@import "node_modules/bootstrap/scss/bootstrap";
 
 .overflow-y {
   overflow-y: auto;
@@ -24,5 +22,24 @@ body, html {
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.icon {
+  vertical-align: middle;
+  transform: translateY(-5%);
+}
+
+.link-item-elem {
+  .link-hover {
+    .icon {
+      display: none !important;
+    }
+
+    &:hover {
+      .icon {
+        display: inline-block !important;
+      }
+    }
   }
 }
