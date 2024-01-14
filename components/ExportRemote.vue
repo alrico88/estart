@@ -1,9 +1,13 @@
 <template lang="pug">
 .vstack.gap-2
   h4.fw-bolder.mb-0 Share
-  .form-text.mb-0 Get a link to remotely export your data. No identifiable information is stored. Links are valid for 24 hours
-  button.btn.btn-secondary.w-100(@click="saveToRemote", :disabled="loading") {{ loading ? 'Getting' : 'Get'}} share link
-  .alert.alert-success.text-center.mb-0(v-if="showSaved")
+  b-form-text.mb-0 Get a link to remotely export your data. No identifiable information is stored. Links are valid for 24 hours
+  b-button.w-100(
+    variant="secondary",
+    @click="saveToRemote",
+    :disabled="loading"
+  ) {{ loading ? "Getting" : "Get" }} share link
+  b-alert.text-center.mb-0(:model-value="showSaved", variant="success")
     .vstack.gap-2.text-center
       div Your share link is:
       a.mb-0.bg-secondary.rounded.p-2(:href="saved") {{ saved }}

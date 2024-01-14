@@ -8,11 +8,9 @@ export const useWeatherStore = defineStore(
       longitude: "",
     });
 
-    const coordinatesAreSet = computed(() => {
-      return [coordinates.latitude, coordinates.longitude].every(
-        (d) => d !== ""
-      );
-    });
+    const coordinatesAreSet = computed(() =>
+      [coordinates.latitude, coordinates.longitude].every((d) => d !== "")
+    );
 
     const placeTag = ref("");
 

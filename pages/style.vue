@@ -7,9 +7,9 @@
     .col-md-3.col-6.pb-3
       .vstack.gap-2.bg-dark.p-3.rounded
         form-group(upper, bolder, label="Items to show")
-          form-check(v-model="styleStore.clock", label="Clock")
-          form-check(v-model="styleStore.search", label="Search")
-          form-check(v-model="styleStore.weather", label="Weather")
+          b-form-checkbox(v-model="styleStore.clock") Clock
+          b-form-checkbox(v-model="styleStore.search") Search
+          b-form-checkbox(v-model="styleStore.weather") Weather
         template(v-if="styleStore.weather")
           hr.my-1
           form-group(upper, bolder, label="Weather")
@@ -22,45 +22,54 @@
               )
         hr.my-1
         form-group(upper, bolder, label="Appearance")
-          form-check(v-model="styleStore.bordered", label="Bordered")
-          form-check(v-model="styleStore.shadowed", label="Shadowed")
-          form-check(v-model="styleStore.favicon", label="Favicons") 
-          form-check(v-model="styleStore.compact", label="Compact container")
-          form-check(v-model="styleStore.masonry", label="Masonry layout")
+          b-form-checkbox(v-model="styleStore.bordered") Bordered
+          b-form-checkbox(v-model="styleStore.shadowed") Shadowed
+          b-form-checkbox(v-model="styleStore.favicon") Favicons
+          b-form-checkbox(v-model="styleStore.compact") Compact container
+          b-form-checkbox(v-model="styleStore.masonry") Masonry layout
         form-group(upper, bolder, label="Background")
           .text-small
             form-group.mb-1(label="Solid color")
               form-reset(
                 original-value="#212121",
                 :current-value="styleStore.bodyColor",
-                @reset="(val) => {styleStore.bodyColor = val}"
+                @reset="(val) => { styleStore.bodyColor = val; }"
               )
-                c-form-input.w-100(type="color", v-model="styleStore.bodyColor")
-            form-group(label="Image background", description="Overrides solid color")
-              c-form-input(type="text", v-model="styleStore.backgroundImage")
+                b-form-input.w-100(
+                  type="color",
+                  v-model="styleStore.bodyColor"
+                )
+            form-group(
+              label="Image background",
+              description="Overrides solid color"
+            )
+              b-form-input(type="text", v-model="styleStore.backgroundImage")
         form-group(upper, bolder, label="Cards")
           .text-small
             form-group.mb-1(label="Cards background color")
               form-reset(
-                original-value="#2e2e2e", 
+                original-value="#2e2e2e",
                 :current-value="styleStore.cardColor",
-                @reset="(val) => {styleStore.cardColor = val}"
+                @reset="(val) => { styleStore.cardColor = val; }"
               )
-                c-form-input.w-100(type="color", v-model="styleStore.cardColor")
+                b-form-input.w-100(
+                  type="color",
+                  v-model="styleStore.cardColor"
+                )
             form-group.mb-1(label="Opacity")
-              input.form-range(
+              b-form-input(
                 type="range",
                 :min="0",
                 :max="100",
                 v-model="styleStore.cardOpacity"
               )
-              form-group(upper, bolder, label="Link alignment")
-          button-group(
-            label="Link alignment",
-            v-model="styleStore.alignment", 
-            :options="alignOptions", 
-            size="sm"
-          )
+            form-group(bolder, label="Link alignment")
+              b-button-group.w-100(size="sm")
+                b-button(
+                  v-for="option of alignOptions",
+                  @click="styleStore.alignment = option.value",
+                  :active="styleStore.alignment === option.value"
+                ) {{ option.label }}
         hr.my-1
         form-group(upper, bolder, label="Fonts")
           .text-small
@@ -68,23 +77,31 @@
               form-reset(
                 original-value="#fafafa",
                 :current-value="styleStore.textColor",
-                @reset="(val) => styleStore.textColor = val"
+                @reset="(val) => (styleStore.textColor = val)"
               )
-                c-form-input.w-100(type="color", v-model="styleStore.textColor")
-            form-group(upper, bolder, label="Custom font family", description="Font must be installed in your system")
+                b-form-input.w-100(
+                  type="color",
+                  v-model="styleStore.textColor"
+                )
+            form-group(
+              upper,
+              bolder,
+              label="Custom font family",
+              description="Font must be installed in your system"
+            )
               form-reset(
-                original-value="Source Sans Pro",
+                original-value="Noto Sans",
                 :current-value="styleStore.fontFamily",
-                @reset="(val) => {styleStore.fontFamily = val}"
+                @reset="(val) => { styleStore.fontFamily = val; }"
               )
-                c-form-input(
+                b-form-input(
                   type="text",
                   placeholder="Ex.: Fira Code",
                   v-model="styleStore.fontFamily"
                 )
         hr.my-1
         form-group(upper, bolder, label="Behavior")
-          form-check(v-model="styleStore.openInNewTab", label="Open links in new tab")
+          b-form-checkbox(v-model="styleStore.openInNewTab") Open links in new tab
     .col
       .row.sticky-top
         .col
@@ -104,7 +121,6 @@
 </template>
 
 <script setup lang="ts">
-import { CFormInput } from "@coreui/bootstrap-vue";
 import { useStyleStore } from "~~/stores/style";
 import { useLinksStore } from "~~/stores/links";
 import { useWeatherStore } from "~~/stores/weather";
@@ -114,7 +130,7 @@ import { nanoid } from "nanoid";
 const linksStore = useLinksStore();
 const weatherStore = useWeatherStore();
 
-useHead({
+useSeoMeta({
   title: "Style settings - estart",
 });
 

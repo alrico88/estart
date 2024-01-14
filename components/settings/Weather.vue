@@ -3,30 +3,31 @@
   .row.g-1
     .col
       form-group(label="Latitude")
-        c-form-input(v-model.trim="latitude")
+        b-form-input(v-model.trim="latitude")
     .col
       form-group(label="Longitude")
-        c-form-input(v-model.trim="longitude")
+        b-form-input(v-model.trim="longitude")
   .row
     .col
-      button.btn.btn-sm.btn-link.p-0(
-        @click="geolocate", 
+      b-button.p-0(
+        variant="link",
+        size="sm",
+        @click="geolocate",
         :disabled="loadingPosition"
-      ) {{ loadingPosition ? 'Getting coordinates...' : 'Get current coordinates' }}
+      ) {{ loadingPosition ? "Getting coordinates..." : "Get current coordinates" }}
   .row
     .col
       form-group(label="Place tag")
-        c-form-input(v-model="placeTag")
+        b-form-input(v-model="placeTag")
   .row
     .col
       form-group(label="Units")
-        select.form-control(v-model="temperatureUnit")
-          option(value="celsius") Celsius
-          option(value="fahrenheit") Fahrenheit
+        b-form-select(v-model="temperatureUnit")
+          b-form-select-option(value="celsius") Celsius
+          b-form-select-option(value="fahrenheit") Fahrenheit
 </template>
 
 <script setup lang="ts">
-import { CFormInput } from "@coreui/bootstrap-vue";
 import type { TemperatureUnit } from "~/utils/weather-conditions";
 
 const props = defineProps<{

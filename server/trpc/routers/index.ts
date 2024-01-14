@@ -30,9 +30,11 @@ export const appRouter = router({
         data: id,
       };
     }),
-  getSuggestions: publicProcedure.input(z.string()).query(async ({ input }) => {
-    return (await getSuggestions(input, "Google")).map((d) => d.term);
-  }),
+  getSuggestions: publicProcedure
+    .input(z.string())
+    .query(async ({ input }) =>
+      (await getSuggestions(input, "Google")).map((d) => d.term)
+    ),
   getWeather: publicProcedure
     .input(
       z.object({

@@ -1,26 +1,25 @@
 <template lang="pug">
-n-config-provider(:theme="darkTheme")
-  .hstack.gap-2
-    n-auto-complete(
-      size="large",
-      :options="suggestions",
-      :loading="loading",
-      @update:value="getSuggestions",
-      @select="(e) => goSearch(e.toString())",
-      :placeholder="`Search using ${searchProvider}`"
-    )
-    div
-      select.form-select(v-model="searchProvider")
-        option(
-          v-for="provider of Object.keys(providers)", 
-          :key="provider", 
-          :value="provider"
-        ) {{ provider }}
+.hstack.gap-2
+  type-ahead.form-control(
+    :items="suggestions",
+    @on-input="handleInput",
+    @select-item="goSearch",
+    :placeholder="`Search using ${searchProvider}`"
+  )
+  div
+    b-input-group
+      b-form-select(
+        v-model="searchProvider",
+        :options="Object.keys(providers)"
+      )
+      template(#append)
+        b-input-group-text(v-if="loading")
+          icon(name="svg-spinners:6-dots-rotate")
 </template>
 
 <script setup lang="ts">
-import { NAutoComplete, NConfigProvider, darkTheme } from "naive-ui";
 import Formatter from "string-object-formatter";
+import TypeAhead from "vue3-simple-typeahead";
 
 const { loading, setLoading } = useLoader();
 
@@ -39,7 +38,7 @@ const suggestions = shallowRef<string[]>([]);
 
 const { $client } = useNuxtApp();
 
-async function getSuggestions(search: string): Promise<void> {
+const getSuggestions = useDebounceFn(async (search: string): Promise<void> => {
   try {
     setLoading(true);
 
@@ -51,6 +50,12 @@ async function getSuggestions(search: string): Promise<void> {
   } finally {
     setLoading(false);
   }
+}, 200);
+
+function handleInput({ input }: { input: string }) {
+  suggestions.value = [];
+
+  getSuggestions(input);
 }
 
 const searchFormatter = new Formatter();

@@ -3,11 +3,9 @@ import { Link } from "~~/models/Link";
 import { find, remove } from "lodash-es";
 
 export const useLinksStore = defineStore("linksStore", {
-  state: () => {
-    return {
-      data: [] as Block[],
-    };
-  },
+  state: () => ({
+    data: [] as Block[],
+  }),
   actions: {
     clearAllData() {
       this.data = [];

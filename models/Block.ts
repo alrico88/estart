@@ -11,6 +11,6 @@ export class Block {
     this.id = nanoid();
     this.title = "";
     this.links = [];
-    this.color = "red";
+    this.color = "#fafafa";
   }
 }

@@ -1,5 +1,7 @@
 <template lang="pug">
-.hstack.gap-2.justify-content-center.align-items-center.lead(v-if="coordinatesAreSet")
+.hstack.gap-2.justify-content-center.align-items-center.lead(
+  v-if="coordinatesAreSet"
+)
   template(v-if="loading")
     div Loading...
   template(v-else)

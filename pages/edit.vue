@@ -8,7 +8,7 @@
     item-key="id",
     handle=".column-drag-handle"
   )
-    template(#item="{element, index}")
+    template(#item="{ element, index }")
       .col
         edit-link-block(
           :key="element.id",
@@ -18,15 +18,14 @@
           v-model:title="element.title",
           v-model:color="element.color"
         )
-  button.btn.btn-outline-light.w-100.mt-3(@click="linksStore.addBlock") #[icon(name="bi:plus-circle")] Add new block
-
+  b-button.w-100.mt-3(variant="outline-light", @click="linksStore.addBlock") #[icon(name="bi:plus-circle")] Add new block
 </template>
 
 <script setup lang="ts">
 import { useLinksStore } from "~~/stores/links";
 import draggable from "vuedraggable";
 
-useHead({
+useSeoMeta({
   title: "Edit links - estart",
 });
 
