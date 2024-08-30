@@ -25,6 +25,7 @@ export const useStyleStore = defineStore("styleStore", {
     fontFamily: "Noto Sans",
     alignment: "center",
     masonry: false,
+    faviconProvider: "google",
   }),
   getters: {
     cardStyle: (state) => ({
@@ -32,6 +33,14 @@ export const useStyleStore = defineStore("styleStore", {
         .alpha(opacityInterpolator(Number(state.cardOpacity)) as number)
         .hex(),
     }),
+    faviconProviderUrl: (state) => {
+      const providerUrls = {
+        google: "https://www.google.com/s2/favicons?sz=64&domain_url=",
+        favi: "https://favi.vercel.app/image?url=",
+      };
+
+      return providerUrls[state.faviconProvider as keyof typeof providerUrls];
+    },
   },
   persist: {
     storage: persistedState.localStorage,

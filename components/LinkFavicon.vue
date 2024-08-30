@@ -8,9 +8,7 @@ const props = defineProps<{
   name: string;
 }>();
 
-const faviconSrc = computed(
-  () => `https://favi.vercel.app/image?url=${props.link}`
-);
+const faviconSrc = useFavicon(() => props.link);
 </script>
 
 <style lang="scss" scoped>

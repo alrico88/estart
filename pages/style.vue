@@ -25,6 +25,12 @@
           b-form-checkbox(v-model="styleStore.bordered") Bordered
           b-form-checkbox(v-model="styleStore.shadowed") Shadowed
           b-form-checkbox(v-model="styleStore.favicon") Favicons
+          b-input-group.mb-1(prepend="Provider", size="sm")
+            b-form-select(
+              v-if="styleStore.favicon",
+              :options="providerOptions",
+              v-model="styleStore.faviconProvider"
+            )
           b-form-checkbox(v-model="styleStore.compact") Compact container
           b-form-checkbox(v-model="styleStore.masonry") Masonry layout
         form-group(upper, bolder, label="Background")
@@ -102,7 +108,7 @@
         hr.my-1
         form-group(upper, bolder, label="Behavior")
           b-form-checkbox(v-model="styleStore.openInNewTab") Open links in new tab
-    .col
+    .col-md-9.col-6
       .row.sticky-top
         .col
           .row
@@ -148,6 +154,17 @@ const alignOptions = [
   {
     label: "Right",
     value: "end",
+  },
+];
+
+const providerOptions = [
+  {
+    text: "Google",
+    value: "google",
+  },
+  {
+    text: "Favi",
+    value: "favi",
   },
 ];
 
