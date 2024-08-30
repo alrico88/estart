@@ -25,9 +25,12 @@
           b-form-checkbox(v-model="styleStore.bordered") Bordered
           b-form-checkbox(v-model="styleStore.shadowed") Shadowed
           b-form-checkbox(v-model="styleStore.favicon") Favicons
-          b-input-group.mb-1(prepend="Provider", size="sm")
+          b-input-group.mb-1(
+            v-if="styleStore.favicon",
+            prepend="Provider",
+            size="sm"
+          )
             b-form-select(
-              v-if="styleStore.favicon",
               :options="providerOptions",
               v-model="styleStore.faviconProvider"
             )
