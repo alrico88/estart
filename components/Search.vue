@@ -20,6 +20,8 @@
 <script setup lang="ts">
 import Formatter from "string-object-formatter";
 import TypeAhead from "vue3-simple-typeahead";
+import { onWatcherCleanup } from "vue";
+import { TRPCClientError } from "@trpc/client";
 
 const { loading, setLoading } = useLoader();
 
@@ -38,24 +40,39 @@ const suggestions = shallowRef<string[]>([]);
 
 const { $client } = useNuxtApp();
 
-const getSuggestions = useDebounceFn(async (search: string): Promise<void> => {
+const search = ref("");
+
+watch(search, async (val) => {
+  const ac = new AbortController();
+
+  onWatcherCleanup(() => {
+    ac.abort();
+  });
+
   try {
     setLoading(true);
 
-    const data = await $client.getSuggestions.query(search);
+    const data = await $client.getSuggestions.query(val, {
+      signal: ac.signal,
+    });
 
-    suggestions.value = [search, ...data];
+    suggestions.value = [val, ...data];
   } catch (err) {
-    console.error(err);
+    if (
+      err instanceof TRPCClientError &&
+      err.message !== "This operation was aborted."
+    ) {
+      console.error({ err });
+    }
   } finally {
     setLoading(false);
   }
-}, 200);
+});
 
 function handleInput({ input }: { input: string }) {
   suggestions.value = [];
 
-  getSuggestions(input);
+  search.value = input;
 }
 
 const searchFormatter = new Formatter();

@@ -1,8 +1,10 @@
 export default defineNuxtConfig({
   ssr: false,
+
   build: {
     transpile: ["trpc-nuxt"],
   },
+
   app: {
     head: {
       title: "estart",
@@ -21,9 +23,11 @@ export default defineNuxtConfig({
       },
     },
   },
+
   css: ["@/assets/main.scss"],
+
   modules: [
-    "nuxt-icon",
+    "@nuxt/icon",
     "@vueuse/nuxt",
     [
       "@pinia/nuxt",
@@ -34,17 +38,15 @@ export default defineNuxtConfig({
     "@pinia-plugin-persistedstate/nuxt",
     "@vite-pwa/nuxt",
     "@bootstrap-vue-next/nuxt",
-    "@nuxtjs/google-fonts",
-    "@nuxtjs/fontaine",
+    "@nuxt/fonts",
   ],
-  fontMetrics: {
-    fonts: ["Noto Sans"],
-  },
+
   nitro: {
     prerender: {
       routes: ["/", "/edit", "/backup", "/style"],
     },
   },
+
   pwa: {
     manifest: {
       name: "estart",
@@ -78,17 +80,22 @@ export default defineNuxtConfig({
       cleanupOutdatedCaches: true,
     },
   },
+
   piniaPersistedstate: {
     storage: "localStorage",
   },
+
   runtimeConfig: {
     redisUrl: "",
     redisPass: "",
     encryptPass: "",
   },
-  googleFonts: {
-    families: {
-      "Noto+Sans": [400, 600, 700, 800],
+
+  icon: {
+    attrs: {
+      icon: true,
     },
   },
+
+  compatibilityDate: "2024-12-08",
 });

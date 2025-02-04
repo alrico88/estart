@@ -2,13 +2,14 @@
 .h-100(:class="cardClasses", :style="cardStyle")
   .p-3
     .lead.fw-bolder.mb-3(:style="{ color }") {{ title }}
-    ul.list-unstyled.mb-0
+    ul.list-unstyled.mb-0(:class="listClass.parent")
       link-item(
         v-for="link of links",
         :key="link.id",
         :name="link.name",
         :url="link.url",
-        :color="color"
+        :color="color",
+        :class="listClass.children"
       )
 </template>
 
@@ -35,4 +36,16 @@ const cardClasses = computed(() => [
     ["border border-right"]: styleStore.bordered,
   },
 ]);
+
+const listClass = computed(() =>
+  styleStore.inline
+    ? {
+        parent: "list-inline",
+        children: "list-inline-item p-1",
+      }
+    : {
+        parent: "list",
+        children: "list-item",
+      }
+);
 </script>

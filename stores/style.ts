@@ -24,6 +24,7 @@ export const useStyleStore = defineStore("styleStore", {
     textColor: "#fafafa",
     fontFamily: "Noto Sans",
     alignment: "center",
+    inline: false,
     masonry: false,
     faviconProvider: "google",
   }),

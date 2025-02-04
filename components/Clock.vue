@@ -1,5 +1,5 @@
 <template lang="pug">
-.vstack.gap-1.text-center(:class="clockClasses")
+.vstack.gap-1(:class="clockClasses")
   .display-5.fw-bolder {{ formatted.hours }}:{{ formatted.minutes }}
   .lead {{ formatted.dayOfWeek }}, {{ formatted.date }}
 </template>

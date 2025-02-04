@@ -35,6 +35,7 @@
               v-model="styleStore.faviconProvider"
             )
           b-form-checkbox(v-model="styleStore.compact") Compact container
+          b-form-checkbox(v-model="styleStore.inline") Inline blocks list
           b-form-checkbox(v-model="styleStore.masonry") Masonry layout
         form-group(upper, bolder, label="Background")
           .text-small
