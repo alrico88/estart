@@ -98,4 +98,13 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: "2024-12-08",
+
+  fonts: {
+    families: [
+      {
+        name: "Noto Sans",
+        provider: "google",
+      },
+    ],
+  },
 });
